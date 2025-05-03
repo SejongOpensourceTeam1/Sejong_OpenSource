@@ -1,0 +1,23 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px;
+  width: 100%;
+}
+
+.title > h2 {
+  justify-content: center;
+}
+
+.title > p {
+  justify-content: flex-end;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+hr {
+  height: 2px;
+  background-color: black;
+  margin: 1px;
+}
