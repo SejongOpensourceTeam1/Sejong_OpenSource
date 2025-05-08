@@ -15,3 +15,8 @@ out/
 
 ### Mac OS ###
 .DS_Store
+
+### Docker ###
+db/data/
+*.pid
+*.log
