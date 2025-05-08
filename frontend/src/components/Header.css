@@ -1,6 +1,5 @@
 .title {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 1px;
   width: 100%;
@@ -14,6 +13,17 @@
   justify-content: flex-end;
   cursor: pointer;
   margin-right: 10px;
+}
+
+.title > input {
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid rgb(220, 220, 220);
+  padding: 10px 0px;
+}
+
+.title > input:focus {
+  outline: none;
 }
 
 hr {
