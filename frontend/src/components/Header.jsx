@@ -15,10 +15,24 @@ const Header = () => {
   return (
     <div className="header">
       <div className="title">
-        <h2>영화 리뷰 플랫폼</h2>
-        <input placeholder="검색어를 입력하세요" />
-        <p onClick={onClickLogin}>로그인</p>
-        <button onClick={onClickSignUp}>회원가입</button>
+        <h2 className="logo-title">🎬Reactor</h2>
+
+        <div className="search-box">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="search-icon"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="#888"
+          >
+            <path d="M10 2a8 8 0 105.293 14.293l5.707 5.707 1.414-1.414-5.707-5.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z" />
+          </svg>
+          <input type="text" placeholder="영화 제목 검색" />
+        </div>
+
+        <button onClick={onClickLogin}>login</button>
+        <button onClick={onClickSignUp}>sign in</button>
       </div>
       <hr />
     </div>
