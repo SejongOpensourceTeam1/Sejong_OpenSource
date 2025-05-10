@@ -3,6 +3,7 @@ package com.example.backend.auth;
 import com.example.backend.user.dto.UserRequest;
 import com.example.backend.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,11 @@ public class AuthController {
     @PostMapping("/register")
     public UserResponse register(@RequestBody UserRequest requestDto) {
         return authService.register(requestDto);
+    }
+
+    @GetMapping("/register")
+    public String test() {
+        return "권한 테스트";
     }
 
 /*
