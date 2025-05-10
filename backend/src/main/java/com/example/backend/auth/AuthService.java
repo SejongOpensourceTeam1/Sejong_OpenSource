@@ -1,5 +1,6 @@
 package com.example.backend.auth;
 
+import com.example.backend.global.provider.JwtTokenProvider;
 import com.example.backend.user.UserRepository;
 import com.example.backend.user.dto.UserRequest;
 import com.example.backend.user.dto.UserResponse;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    //private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
     public UserResponse register(UserRequest userRequest) {
