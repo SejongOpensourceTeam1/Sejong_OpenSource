@@ -2,8 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
 import Home from "./Pages/Home";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
+import Mypage from "./pages/Mypage";
 
 export const MovieContext = createContext();
 
@@ -47,8 +46,7 @@ function App() {
       <MovieContext.Provider value={movies}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/mypage" element={<Mypage />} />
         </Routes>
       </MovieContext.Provider>
     </>

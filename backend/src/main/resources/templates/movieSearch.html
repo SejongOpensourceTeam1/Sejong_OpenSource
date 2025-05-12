@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 검색 결과</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        .movie-card {
+            margin: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: white;
+        }
+        .movie-card img {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .movie-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .movie-overview {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>검색 결과</h1>
+    <div class="row">
+        <div class="col-md-3" th:each="movie : ${movies}">
+            <div class="movie-card">
+                <!-- 포스터 URL을 바르게 처리 -->
+                <img th:src="@{https://image.tmdb.org/t/p/w200/{movie.posterPath} != null ? 'https://image.tmdb.org/t/p/w200/' + ${movie.posterPath} : 'https://via.placeholder.com/500x750'}" alt="Movie Poster">
+                <div class="movie-title" th:text="${movie.title}"></div>
+                <div class="movie-overview" th:text="${movie.overview}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
