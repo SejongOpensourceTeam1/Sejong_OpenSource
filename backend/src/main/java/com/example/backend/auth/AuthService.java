@@ -49,17 +49,21 @@ public class AuthService {
         String refreshToken = jwtTokenProvider.generateRefreshToken(
                 new UsernamePasswordAuthenticationToken(new CustomUserDetails(user), user.getPassword()));
 
-
-        // TODO: refreshToken을 DB나 Redis에 저장하려면 여기서 저장
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
 
         return new AuthResponseDto(accessToken, refreshToken);
     }
 
     @Transactional
-    public void logout(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        User user = userRepository.findById(userDetails.getId())
-                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+    public void logout(String accessToken) {
+        if (!jwtTokenProvider.validateToken(accessToken)) {
+            throw new IllegalArgumentException("유효하지 않은 토큰");
+        }
 
-        user.setRefreshToken(null);
+        Long userId = jwtTokenProvider.getUserIdFromToken(accessToken);
+        User user = userRepository.findById(userId).orElseThrow();
+        user.setRefreshToken(null);  // DB에서 삭제
+        userRepository.save(user);
     }
 }

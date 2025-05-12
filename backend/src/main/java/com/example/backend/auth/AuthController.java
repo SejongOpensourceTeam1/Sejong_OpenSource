@@ -22,28 +22,15 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
-    // TODO : 배포 시 삭제
-    @GetMapping("/register")
-    public String test1() {
-        return "권한 테스트";
-    }
-
-    @GetMapping("/login")
-    public String test2() {
-        return "권한 테스트";
-    }
-
-
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto requestDto) {
         return ResponseEntity.ok(authService.login(requestDto));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout() {
-        //authService.logout();
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String accessToken) {
+        authService.logout(accessToken);
+        return ResponseEntity.ok().build();
     }
 
 }
