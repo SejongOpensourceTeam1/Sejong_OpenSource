@@ -1,12 +1,12 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql_token
+    container_name: mysql_oss
     ports:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: token
+      MYSQL_DATABASE: oss
     volumes:
       - ./db/data:/var/lib/mysql
     platform: linux/arm64
