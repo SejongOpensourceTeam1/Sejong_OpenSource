@@ -1,0 +1,76 @@
+/* 전체 화면을 어둡게 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 모달 박스 */
+.modal-content {
+  background: white;
+  padding: 2rem;
+  width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* 닫기 버튼 */
+.close-button {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* 입력폼 */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-form input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* 제출 버튼 */
+.modal-submit {
+  background-color: #4d63ff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-submit:hover {
+  background-color: #3c4ddf;
+}
+
+/* 하단 안내 문구 */
+.redirect-text {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.link-text {
+  color: #4d63ff;
+  cursor: pointer;
+  font-weight: bold;
+}
