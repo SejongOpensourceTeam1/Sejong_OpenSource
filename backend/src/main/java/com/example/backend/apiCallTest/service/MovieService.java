@@ -1,11 +1,10 @@
-package com.example.backend.service;
+package com.example.backend.apiCallTest.service;
 
-import com.example.backend.dto.MovieDto;
+import com.example.backend.apiCallTest.dto.MovieDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

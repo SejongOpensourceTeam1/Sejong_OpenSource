@@ -1,6 +1,6 @@
-package com.example.backend.repository;
+package com.example.backend.apiCallTest.repository;
 
-import com.example.backend.domain.Review;
+import com.example.backend.apiCallTest.domain.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

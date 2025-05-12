@@ -1,7 +1,7 @@
-package com.example.backend.service;
+package com.example.backend.apiCallTest.service;
 
-import com.example.backend.domain.Review;
-import com.example.backend.repository.ReviewRepository;
+import com.example.backend.apiCallTest.domain.Review;
+import com.example.backend.apiCallTest.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

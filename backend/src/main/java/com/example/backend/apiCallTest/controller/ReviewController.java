@@ -1,7 +1,7 @@
-package com.example.backend.controller;
+package com.example.backend.apiCallTest.controller;
 
-import com.example.backend.domain.Review;
-import com.example.backend.service.ReviewService;
+import com.example.backend.apiCallTest.domain.Review;
+import com.example.backend.apiCallTest.service.ReviewService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
