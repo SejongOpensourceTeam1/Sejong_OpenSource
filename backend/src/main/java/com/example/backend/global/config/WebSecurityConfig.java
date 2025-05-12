@@ -31,7 +31,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         (request) -> request
                                 .requestMatchers("/api/login", "/api/register", "/api/refresh").permitAll()
-                                .requestMatchers("/api/user").authenticated()
+                                .requestMatchers("/api/user/**").authenticated()
                                 .anyRequest().authenticated() // TODO : 일단 권한 전부 열어둠
                 )
 
