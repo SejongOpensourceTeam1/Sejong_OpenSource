@@ -1,12 +1,11 @@
 
-
 spring:
   application:
     name: backend
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/token
+    url: jdbc:mysql://localhost:3306/oss
     username: root
     password: 1234
 

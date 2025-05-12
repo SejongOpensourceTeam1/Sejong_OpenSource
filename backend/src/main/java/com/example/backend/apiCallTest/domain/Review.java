@@ -1,9 +1,9 @@
-package com.example.backend.dto;
+package com.example.backend.apiCallTest.domain;
 
 import lombok.Data;
 
 @Data
-public class ReviewDto {
+public class Review {
     private Long id;
     private Long movieId;
     private String username;

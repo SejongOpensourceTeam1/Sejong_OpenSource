@@ -1,7 +1,7 @@
-package com.example.backend.controller;
+package com.example.backend.apiCallTest.controller;
 
-import com.example.backend.dto.MovieDto;
-import com.example.backend.service.MovieService;
+import com.example.backend.apiCallTest.dto.MovieDto;
+import com.example.backend.apiCallTest.service.MovieService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
