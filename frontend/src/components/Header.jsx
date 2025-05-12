@@ -1,21 +1,26 @@
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({
+  isLogin,
+  setIsLogin,
+  setShowLoginModal,
+  setShowRegisterModal,
+}) => {
   const nav = useNavigate();
 
-  const onClickLogin = () => {
-    nav("/login");
-  };
-
-  const onClickSignUp = () => {
-    nav("/signup");
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("nickname");
+    setIsLogin(false);
   };
 
   return (
     <div className="header">
       <div className="title">
-        <h2 className="logo-title">🎬Reactor</h2>
+        <h2 className="logo-title" onClick={() => nav("/")}>
+          🎬Reactor
+        </h2>
 
         <div className="search-box">
           <svg
@@ -31,8 +36,21 @@ const Header = () => {
           <input type="text" placeholder="영화 제목 검색" />
         </div>
 
-        <button onClick={onClickLogin}>login</button>
-        <button onClick={onClickSignUp}>sign in</button>
+        <div className="auth-buttons">
+          {isLogin ? (
+            <>
+              <button onClick={logout}>로그아웃</button>
+              <button onClick={() => nav("/mypage")}>마이페이지</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => setShowLoginModal(true)}>로그인</button>
+              <button onClick={() => setShowRegisterModal(true)}>
+                회원가입
+              </button>
+            </>
+          )}
+        </div>
       </div>
       <hr />
     </div>

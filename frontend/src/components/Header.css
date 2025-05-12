@@ -17,7 +17,7 @@
 
 /* 🎬MovieLog 타이틀 */
 .logo-title {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   font-size: 2rem;
   font-weight: 500;
   color: #eee;
@@ -25,6 +25,7 @@
   letter-spacing: 1px;
   flex: 1 1 auto;
   min-width: 120px;
+  cursor: pointer;
 }
 
 /* 검색창 박스 */
@@ -68,7 +69,7 @@
   flex-shrink: 0;
 
   /* ✅ 폰트 통일 */
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;
 }
 
