@@ -2,12 +2,19 @@ import Header from "../components/Header";
 import Context from "../components/Context";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Home = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLogin(true);
+    }
+  }, []);
 
   const switchToLogin = () => {
     setShowRegisterModal(false);

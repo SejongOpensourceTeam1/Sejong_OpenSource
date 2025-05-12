@@ -13,6 +13,7 @@ const Header = ({
     localStorage.removeItem("token");
     localStorage.removeItem("nickname");
     setIsLogin(false);
+    window.location.reload();
   };
 
   return (
@@ -40,7 +41,7 @@ const Header = ({
           {isLogin ? (
             <>
               <button onClick={logout}>로그아웃</button>
-              <button onClick={() => nav("/mypage")}>마이페이지</button>
+              <button onClick={() => nav("/user/mypage")}>마이페이지</button>
             </>
           ) : (
             <>
