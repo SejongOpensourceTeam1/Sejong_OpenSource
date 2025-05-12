@@ -8,3 +8,9 @@ spring:
     hibernate:
       ddl-auto: update  # (create, update, validate, none ? ??)
     show-sql: true      # ???? SQL? ??
+
+
+jwt:
+  secret: U2Vqb25nVW5pdi1PcGVuU291cmNlLVNXLTIwMjUtMS1UZWFtMS1zZWNyZXRLZXk=
+  accessTokenExpirationTime: 3600000         # 1시간 (1000 * 60 * 60)
+  refreshTokenExpirationTime: 86400000

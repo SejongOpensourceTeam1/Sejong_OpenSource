@@ -8,12 +8,12 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserResponseDto {
     private Long id;
     private String nickname;
     private String username;
 
-    public UserResponse(User entity) {
+    public UserResponseDto(User entity) {
         this.id = entity.getId();
         this.username = entity.getUsername();
         this.nickname = entity.getNickname();

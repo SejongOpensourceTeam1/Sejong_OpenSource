@@ -1,64 +1,47 @@
 package com.example.backend.user;
 
-import com.example.backend.user.dto.UserRequest;
-import com.example.backend.user.dto.UserResponse;
+import com.example.backend.user.dto.UserRequestDto;
+import com.example.backend.user.dto.UserResponseDto;
+import com.example.backend.user.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RestController
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
-    public UserResponse post(@RequestBody UserRequest request) {
-        User savedUser = userService.createUser(request);
+    @GetMapping("/mypage")
+    public UserResponseDto getMyInfo(@AuthenticationPrincipal CustomUserDetails userDetails)  {
+        User user = userService.getUser(userDetails.getId());
 
-        return UserResponse.builder()
-                .id(savedUser.getId())
-                .nickname(savedUser.getNickname())
-                .build();
-    }
-
-    @GetMapping
-    public UserResponse get(@RequestParam Long id) {
-        User user = userService.getUser(id);
-
-        return UserResponse.builder()
+        return UserResponseDto.builder()
                 .id(user.getId())
                 .nickname(user.getNickname())
                 .build();
     }
 
-    @PutMapping("/{id}/username")
-    public UserResponse updateUsername(@PathVariable Long id, @RequestBody UserRequest request) {
-        User updatedUser = userService.updateUsername(id, request);
-
-        return UserResponse.builder()
-                .id(updatedUser.getId())
-                .nickname(updatedUser.getNickname())
+    @PutMapping("/mypage/modify/nickname")
+    public UserResponseDto updateNickname(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                          @RequestBody UserRequestDto request) {
+        var user = userService.updateUserNickname(userDetails.getId(), request);
+        return UserResponseDto.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
                 .build();
     }
 
-    @PutMapping("/{id}/nickname")
-    public UserResponse updateUserNickname(@PathVariable Long id, @RequestBody UserRequest request) {
-        User updatedUser = userService.updateUserNickname(id, request);
-
-        return UserResponse.builder()
-                .id(updatedUser.getId())
-                .nickname(updatedUser.getNickname())
-                .build();
-    }
-
-    @PutMapping("/{id}/password")
-    public UserResponse updateUserPassword(@PathVariable Long id, @RequestBody UserRequest request) {
-        User updatedUser = userService.updateUserPassword(id, request);
-
-        return UserResponse.builder()
-                .id(updatedUser.getId())
-                .nickname(updatedUser.getNickname())
+    @PutMapping("/mypage/modify/password")
+    public UserResponseDto updatePassword(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                          @RequestBody UserRequestDto request) {
+        var user = userService.updateUserPassword(userDetails.getId(), request);
+        return UserResponseDto.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
                 .build();
     }
 
