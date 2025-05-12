@@ -46,7 +46,7 @@ function App() {
       <MovieContext.Provider value={movies}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/user/mypage" element={<Mypage />} />
         </Routes>
       </MovieContext.Provider>
     </>

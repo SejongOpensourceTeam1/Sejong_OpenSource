@@ -33,6 +33,7 @@ const Login = ({ closeModal, onLoginSuccess, switchToRegister }) => {
         localStorage.setItem("nickname", result.nickname); // 선택
         onLoginSuccess();
         closeModal();
+        window.location.reload();
       } else {
         alert("로그인 실패: 아이디나 비밀번호를 확인하세요.");
       }
