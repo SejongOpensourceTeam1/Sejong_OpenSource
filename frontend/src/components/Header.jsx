@@ -1,12 +1,15 @@
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Header = ({
   isLogin,
   setIsLogin,
   setShowLoginModal,
   setShowRegisterModal,
+  onSearch,
 }) => {
+  const [input, setInput] = useState("");
   const nav = useNavigate();
 
   const logout = () => {
@@ -15,6 +18,15 @@ const Header = ({
     setIsLogin(false);
     window.location.reload();
   };
+
+  // input이 변경될 때마다 부모로 전달
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onSearch(input.trim());
+    }, 100); // 디바운싱: 100ms 대기 후 실행
+
+    return () => clearTimeout(timer); // 이전 타이머 제거
+  }, [input, onSearch]);
 
   return (
     <div className="header">
@@ -34,7 +46,12 @@ const Header = ({
           >
             <path d="M10 2a8 8 0 105.293 14.293l5.707 5.707 1.414-1.414-5.707-5.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z" />
           </svg>
-          <input type="text" placeholder="영화 제목 검색" />
+          <input
+            type="text"
+            placeholder="영화 제목 검색"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
         </div>
 
         <div className="auth-buttons">
