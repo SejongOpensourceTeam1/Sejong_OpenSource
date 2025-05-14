@@ -1,78 +1,27 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import "./Context.css";
+import ScrollableSlider from "./ScrollableSlider";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-const ScrollableSlider = ({ title, movies }) => {
-  const sliderRef = useRef(null);
-  const [isScrolling, setIsScrolling] = useState(false);
-
-  const scrollLeft = () => {
-    if (sliderRef.current && !isScrolling) {
-      setIsScrolling(true);
-      const width = sliderRef.current.clientWidth;
-      sliderRef.current.scrollBy({ left: -width, behavior: "smooth" });
-      setTimeout(() => setIsScrolling(false), 500);
-    }
-  };
-
-  const scrollRight = () => {
-    if (sliderRef.current && !isScrolling) {
-      setIsScrolling(true);
-      const width = sliderRef.current.clientWidth;
-      sliderRef.current.scrollBy({ left: width, behavior: "smooth" });
-      setTimeout(() => setIsScrolling(false), 500);
-    }
-  };
-
-  return (
-    <div className="genre-section">
-      <div className="movie-slider-wrapper">
-        <div className="genre-label-wrapper">
-          <h3 className="genre-label">{title}</h3>
-        </div>
-        <div className="slider-container">
-          <button className="arrow-button circle left" onClick={scrollLeft}>
-            &#10094;
-          </button>
-          <div className="movie-slider" ref={sliderRef}>
-            {movies.map((movie) => (
-              <div className="movie-card" key={movie.id}>
-                {movie.poster_path && (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                )}
-                <p className="movie-title">
-                  {movie.title}
-                  <span className="rating">★ {movie.vote_average?.toFixed(1)}</span>
-                </p>
-              </div>
-            ))}
-          </div>
-          <button className="arrow-button circle right" onClick={scrollRight}>
-            &#10095;
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Context = () => {
+const Context = ({ searchKeyword }) => {
   const [genres, setGenres] = useState([]);
   const [genreMovies, setGenreMovies] = useState({});
   const [topRated, setTopRated] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko&api_key=${API_KEY}`)
+    fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?language=ko&api_key=${API_KEY}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setTopRated(data.results.slice(0, 10));
       });
 
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?language=ko&api_key=${API_KEY}`)
+    fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?language=ko&api_key=${API_KEY}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setGenres(data.genres);
@@ -94,8 +43,32 @@ const Context = () => {
       });
   }, []);
 
+  // 검색어가 변경될 때마다 검색 실행
+  useEffect(() => {
+    if (!searchKeyword) {
+      setSearchResults([]);
+      return;
+    }
+
+    fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+        searchKeyword
+      )}&language=ko&api_key=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setSearchResults(data.results);
+      });
+  }, [searchKeyword]);
+
   return (
     <div className="genre-wrapper">
+      {searchResults.length > 0 && (
+        <ScrollableSlider
+          title={`🔍 "${searchKeyword}" 검색 결과`}
+          movies={searchResults.slice(0, 18)}
+        />
+      )}
       <ScrollableSlider title="⭐ 평점 높은 영화 Top 10" movies={topRated} />
       {genres.map((genre) => (
         <ScrollableSlider

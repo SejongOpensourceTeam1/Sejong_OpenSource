@@ -2,12 +2,13 @@ import Header from "../components/Header";
 import Context from "../components/Context";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const Home = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -15,6 +16,10 @@ const Home = () => {
       setIsLogin(true);
     }
   }, []);
+
+  const handleSearch = useCallback((keyword) => {
+    setSearchKeyword(keyword);
+  }, []); // deps 없음: 항상 같은 함수
 
   const switchToLogin = () => {
     setShowRegisterModal(false);
@@ -33,6 +38,7 @@ const Home = () => {
         setIsLogin={setIsLogin}
         setShowLoginModal={setShowLoginModal}
         setShowRegisterModal={setShowRegisterModal}
+        onSearch={handleSearch}
       />
 
       {/* 로그인 모달 */}
@@ -56,7 +62,7 @@ const Home = () => {
       )}
 
       {/* 메인 콘텐츠 */}
-      <Context />
+      <Context searchKeyword={searchKeyword} />
     </div>
   );
 };
