@@ -1,0 +1,14 @@
+.footer {
+  background-color: #111;
+  color: grey;
+  height: 400px;
+  padding: 40px 0px;
+}
+
+.footer .footer-info {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  align-items: flex-start;
+  list-style-type: none;
+}
