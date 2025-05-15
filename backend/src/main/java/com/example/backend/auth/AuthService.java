@@ -9,6 +9,7 @@ import com.example.backend.user.dto.UserRequestDto;
 import com.example.backend.user.dto.UserResponseDto;
 import com.example.backend.user.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,6 +58,10 @@ public class AuthService {
 
     @Transactional
     public void logout(String accessToken) {
+        if (accessToken.startsWith("Bearer ")) {
+            accessToken = accessToken.substring(7);
+        }
+
         if (!jwtTokenProvider.validateToken(accessToken)) {
             throw new IllegalArgumentException("유효하지 않은 토큰");
         }
@@ -65,5 +70,21 @@ public class AuthService {
         User user = userRepository.findById(userId).orElseThrow();
         user.setRefreshToken(null);  // DB에서 삭제
         userRepository.save(user);
+    }
+
+    @Transactional
+    public AuthResponseDto refresh(String refreshToken) {
+
+        if (jwtTokenProvider.validateToken(refreshToken)) {
+            User user = userRepository.findByRefreshToken(refreshToken).orElseThrow(
+                    () -> new IllegalArgumentException("유효하지 않음"));
+
+            String newAccessToken = jwtTokenProvider.generateAccessToken(
+                    new UsernamePasswordAuthenticationToken(new CustomUserDetails(user), user.getPassword()));
+
+            return new AuthResponseDto(newAccessToken, refreshToken);
+        }
+
+        throw new IllegalArgumentException();
     }
 }
