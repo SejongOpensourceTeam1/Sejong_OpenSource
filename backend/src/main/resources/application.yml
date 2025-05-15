@@ -21,7 +21,7 @@ spring:
         format_sql: true
 
 jwt:
-  secret: U2Vqb25nVW5pdi1PcGVuU291cmNlLVNXLTIwMjUtMS1UZWFtMS1zZWNyZXRLZXk
+  secret: U2Vqb25nVW5pdi1PcGVuU291cmNlLVNXLTIwMjUtMS1UZWFtMS1zZWNyZXRLZXk=
   accessTokenExpirationTime: 3600000
   refreshTokenExpirationTime: 86400000
 

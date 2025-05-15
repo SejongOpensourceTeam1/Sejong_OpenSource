@@ -22,6 +22,7 @@ public class UserController {
         return UserResponseDto.builder()
                 .id(user.getId())
                 .nickname(user.getNickname())
+                .username(user.getUsername())
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class UserController {
         return UserResponseDto.builder()
                 .id(user.getId())
                 .nickname(user.getNickname())
+                .username(user.getUsername())
                 .build();
     }
 
@@ -42,6 +44,7 @@ public class UserController {
         return UserResponseDto.builder()
                 .id(user.getId())
                 .nickname(user.getNickname())
+                .username(user.getUsername())
                 .build();
     }
 

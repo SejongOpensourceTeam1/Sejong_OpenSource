@@ -27,14 +27,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(
                         (request) -> request
-                                .requestMatchers("/api/login", "/api/register", "/api/refresh").permitAll()
+                                .requestMatchers("/api/login", "/api/register", "/api/refresh", "/api/logout").permitAll()
                                 .requestMatchers("/api/user/**").authenticated()
                                 .anyRequest().authenticated() // TODO : 일단 권한 전부 열어둠
                 )
-
 
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
 
