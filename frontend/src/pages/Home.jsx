@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Context from "../components/Context";
 import Login from "../components/Login";
 import Register from "../components/Register";
@@ -63,6 +64,8 @@ const Home = () => {
 
       {/* 메인 콘텐츠 */}
       <Context searchKeyword={searchKeyword} />
+
+      <Footer />
     </div>
   );
 };
