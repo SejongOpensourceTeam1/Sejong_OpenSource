@@ -1,11 +1,9 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./ScrollableSlider.css";
 
 const ScrollableSlider = ({ title, movies }) => {
   const sliderRef = useRef(null);
   const [isScrolling, setIsScrolling] = useState(false);
-  const nav = useNavigate();
 
   const scrollLeft = () => {
     if (sliderRef.current && !isScrolling) {
@@ -30,7 +28,6 @@ const ScrollableSlider = ({ title, movies }) => {
       <div className="movie-slider-wrapper">
         <div className="genre-label-wrapper">
           <h3 className="genre-label">{title}</h3>
-          <div className="genre-divider" />
         </div>
         <div className="slider-container">
           <button className="arrow-button circle left" onClick={scrollLeft}>
@@ -38,11 +35,7 @@ const ScrollableSlider = ({ title, movies }) => {
           </button>
           <div className="movie-slider" ref={sliderRef}>
             {movies.map((movie) => (
-              <div
-                className="movie-card"
-                key={movie.id}
-                onClick={() => nav(`movie/${movie.id}`)}
-              >
+              <div className="movie-card" key={movie.id}>
                 {movie.poster_path && (
                   <img
                     src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
