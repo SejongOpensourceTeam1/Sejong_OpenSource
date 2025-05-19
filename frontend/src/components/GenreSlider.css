@@ -46,6 +46,7 @@
   scroll-snap-align: start;
   transition: transform 0.2s;
   min-width: 150px;
+  cursor: pointer;
 }
 
 .movie-card:hover {
