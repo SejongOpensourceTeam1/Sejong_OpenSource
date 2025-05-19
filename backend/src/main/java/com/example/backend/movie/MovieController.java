@@ -1,4 +1,4 @@
 package com.example.backend.movie;
 
-public class MoveController {
+public class MovieController {
 }
