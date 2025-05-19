@@ -1,8 +1,15 @@
 package com.example.backend.review;
 
+import com.example.backend.movie.Movie;
+import com.example.backend.movie.MovieRepository;
 import com.example.backend.review.Review;
 import com.example.backend.review.ReviewService;
+import com.example.backend.review.dto.ReviewRequest;
+import com.example.backend.review.dto.UserReviewResponse;
+import com.example.backend.user.User;
+import com.example.backend.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +22,8 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
 
     @PostMapping
     public String createReview(@ModelAttribute Review review, Model model) {
@@ -23,10 +32,16 @@ public class ReviewController {
         return "reviewForm";
     }
 
+
     @GetMapping("/movie/{movieId}")
     public String getReviewsByMovieId(@PathVariable Long movieId, Model model) {
         List<Review> reviews = reviewService.findByMovieId(movieId);
         model.addAttribute("reviews", reviews);
         return "movieReviews";
+    }
+
+    @GetMapping("/my/{userId}")
+    public ResponseEntity<List<UserReviewResponse>> getMyReviews(@PathVariable Long userId) {
+        return ResponseEntity.ok(reviewService.getMyReviewMovies(userId));
     }
 }

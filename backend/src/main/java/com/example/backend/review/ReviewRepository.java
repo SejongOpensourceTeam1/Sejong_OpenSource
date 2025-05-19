@@ -1,6 +1,5 @@
 package com.example.backend.review;
 
-import com.example.backend.review.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,8 +14,8 @@ public class ReviewRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public void save(Review review) {
-        String sql = "INSERT INTO review (movie_id, username, content, rating) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, review.getId(), review.getUsername(), review.getContent(), review.getRating());
+        String sql = "INSERT INTO review (movie_id, user, content, rating) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, review.getId(), review.getUser(), review.getContent(), review.getRating());
     }
 
     public List<Review> findByMovieId(Long movieId) {
@@ -33,4 +32,6 @@ public class ReviewRepository {
         String sql = "DELETE FROM review WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
+
 }

@@ -23,16 +23,11 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User username;
+    private User user;
 
     @Column(length = 1000, nullable = false)
     private String content;
 
     private String rating;
 
-    public Review(Movie movie, User username, String content) {
-        this.movie = movie;
-        this.username = username;
-        this.content = content;
-    }
 }
