@@ -28,6 +28,7 @@ const ScrollableSlider = ({ title, movies }) => {
       <div className="movie-slider-wrapper">
         <div className="genre-label-wrapper">
           <h3 className="genre-label">{title}</h3>
+          <div className="genre-divider" />
         </div>
         <div className="slider-container">
           <button className="arrow-button circle left" onClick={scrollLeft}>

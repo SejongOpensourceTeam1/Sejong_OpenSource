@@ -8,15 +8,13 @@ const GenreSlider = () => {
   const [genreMovies, setGenreMovies] = useState({});
 
   useEffect(() => {
-    // 1. 장르 목록 불러오기
     fetch(`https://api.themoviedb.org/3/genre/movie/list?language=ko&api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => {
         setGenres(data.genres);
 
-        // 2. 각 장르별 영화 요청
         data.genres.forEach((genre) => {
-          fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${genre.id}&api_key=${API_KEY}`)
+          fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${genre.id}&language=ko&api_key=${API_KEY}`)
             .then((res) => res.json())
             .then((movieData) => {
               setGenreMovies((prev) => ({
@@ -32,7 +30,8 @@ const GenreSlider = () => {
     <div className="genre-wrapper">
       {genres.map((genre) => (
         <div className="genre-section" key={genre.id}>
-          <h3>{genre.name}</h3>
+          <h3 className="genre-label">{genre.name}</h3>
+
           <div className="movie-slider">
             {(genreMovies[genre.name] || []).slice(0, 18).map((movie) => (
               <div className="movie-card" key={movie.id}>

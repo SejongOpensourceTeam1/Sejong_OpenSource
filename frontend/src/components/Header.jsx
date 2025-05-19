@@ -32,7 +32,7 @@ const Header = ({
     <div className="header">
       <div className="title">
         <h2 className="logo-title" onClick={() => nav("/")}>
-          🎬Reactor
+          🎬CineCampus
         </h2>
 
         <div className="search-box">
