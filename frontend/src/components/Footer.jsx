@@ -1,17 +1,18 @@
 import { useState } from "react";
 import "./Footer.css";
-import instaIcon from "../insta.png";
-import sejongLogo from "../sejong.png";
+import instaIcon from "../assets/insta.png";
+import sejongLogo from "../assets/sejong.png";
 
 const infoContent = {
   "팀 소개": [
     "세종대학교 소프트웨어학과",
     "백엔드: 염지환, 황순영",
-    "프론트엔드: 김동은, 이영빈"
+    "프론트엔드: 김동은, 이영빈",
   ],
   "이용 안내": "이 사이트는 영화 리뷰를 등록, 열람할 수 있는 커뮤니티입니다.",
-  "문의하기": "문의: 찾아오세요",
-  "개인정보 처리방침": "당신의 개인정보는 안전하게 관리됩니다. 외부에 절대 공개되지 않습니다.",
+  문의하기: "문의: 찾아오세요",
+  "개인정보 처리방침":
+    "당신의 개인정보는 안전하게 관리됩니다. 외부에 절대 공개되지 않습니다.",
 };
 
 const Footer = () => {
@@ -32,11 +33,23 @@ const Footer = () => {
     <div className="footer">
       <div className="footer-top">
         <div className="social-links">
-          <a href="https://www.instagram.com/sejong_csw/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.instagram.com/sejong_csw/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={instaIcon} alt="Instagram" className="footer-icon" />
           </a>
-          <a href="http://sejong.ac.kr/index.htm" target="_blank" rel="noopener noreferrer">
-            <img src={sejongLogo} alt="Sejong University" className="sejong-logo" />
+          <a
+            href="http://sejong.ac.kr/index.htm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={sejongLogo}
+              alt="Sejong University"
+              className="sejong-logo"
+            />
           </a>
         </div>
       </div>
@@ -60,7 +73,9 @@ const Footer = () => {
             <h3>{selectedTitle}</h3>
 
             {Array.isArray(infoContent[selectedTitle]) ? (
-              infoContent[selectedTitle].map((line, idx) => <p key={idx}>{line}</p>)
+              infoContent[selectedTitle].map((line, idx) => (
+                <p key={idx}>{line}</p>
+              ))
             ) : (
               <p>{infoContent[selectedTitle]}</p>
             )}
