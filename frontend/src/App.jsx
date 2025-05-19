@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
 import Home from "./Pages/Home";
 import Mypage from "./pages/Mypage";
+import MovieInfo from "./pages/MovieInfo";
 
 export const MovieContext = createContext();
 
@@ -47,6 +48,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/user/mypage" element={<Mypage />} />
+          <Route path="/movie/:id" element={<MovieInfo />} />
         </Routes>
       </MovieContext.Provider>
     </>

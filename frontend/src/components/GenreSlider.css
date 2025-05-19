@@ -1,63 +1,61 @@
 .genre-wrapper {
-    padding: 2rem;
-    background-color: #111;
-    color: #eee;
-  }
-  
-  .genre-section {
-    margin-bottom: 2.5rem;
-  }
-  
-  .genre-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.7rem;
-    padding-left: 0.5rem;
-  }
-  
-  /* 슬라이더 */
-  .movie-slider {
-    display: flex;
-    overflow-x: auto;
-    gap: 1rem;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 0.5rem;
-  }
-  
-  .movie-slider::-webkit-scrollbar {
-    height: 6px;
-  }
-  
-  .movie-slider::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 3px;
-  }
-  
-  /* 카드 */
-  .movie-card {
-    flex: 0 0 calc(100% / 6 - 1rem);
-    background-color: #1a1a1a;
-    border-radius: 10px;
-    overflow: hidden;
-    scroll-snap-align: start;
-    transition: transform 0.2s;
-    min-width: 150px;
-  }
-  
-  .movie-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .movie-card img {
-    width: 100%;
-    display: block;
-  }
-  
-  .movie-card p {
-    margin: 0;
-    padding: 0.6rem;
-    font-size: 0.85rem;
-    text-align: center;
-  }
+  padding: 2rem;
+  background-color: #111;
+  color: #eee;
+}
 
-  
-  
+.genre-section {
+  margin-bottom: 2.5rem;
+}
+
+.genre-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.7rem;
+  padding-left: 0.5rem;
+}
+
+/* 슬라이더 */
+.movie-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+}
+
+.movie-slider::-webkit-scrollbar {
+  height: 6px;
+}
+
+.movie-slider::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 3px;
+}
+
+/* 카드 */
+.movie-card {
+  flex: 0 0 calc(100% / 6 - 1rem);
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition: transform 0.2s;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+}
+
+.movie-card img {
+  width: 100%;
+  display: block;
+}
+
+.movie-card p {
+  margin: 0;
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  text-align: center;
+}

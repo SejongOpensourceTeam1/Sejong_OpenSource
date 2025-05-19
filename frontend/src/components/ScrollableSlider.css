@@ -37,6 +37,7 @@
   overflow: hidden;
   transition: transform 0.2s;
   position: relative;
+  cursor: pointer;
 }
 
 .movie-card:hover {
