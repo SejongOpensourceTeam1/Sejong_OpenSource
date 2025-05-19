@@ -1,45 +1,32 @@
 package com.example.backend.review;
 
-import com.example.backend.review.dto.ReviewRequest;
-import com.example.backend.review.dto.ReviewUpdateRequest;
+import com.example.backend.review.Review;
+import com.example.backend.review.ReviewService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
+@RequiredArgsConstructor
 @RequestMapping("/reviews")
 public class ReviewController {
 
     private final ReviewService reviewService;
 
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
+    @PostMapping
+    public String createReview(@ModelAttribute Review review, Model model) {
+        reviewService.create(review);
+        model.addAttribute("message", "리뷰가 성공적으로 작성되었습니다.");
+        return "reviewForm";
     }
 
     @GetMapping("/movie/{movieId}")
-    public List<Review> getReviewsByMovie(@PathVariable Long movieId) {
-        return reviewService.getByMovieId(movieId);
-    }
-
-    @GetMapping
-    public List<Review> getAllReviews() {
-        return reviewService.getAll();
-    }
-
-    /*
-    @PostMapping
-    public Review createReview(@RequestBody ReviewRequest request) {
-        return reviewService.create(request.movieId(), request.writerId(), request.content());
-    }
-    */
-
-    @PutMapping("/{reviewId}")
-    public Review updateReview(@PathVariable Long reviewId, @RequestBody ReviewUpdateRequest request) {
-        return reviewService.update(reviewId, request.newContent());
-    }
-
-    @DeleteMapping("/{reviewId}")
-    public void deleteReview(@PathVariable Long reviewId) {
-        reviewService.delete(reviewId);
+    public String getReviewsByMovieId(@PathVariable Long movieId, Model model) {
+        List<Review> reviews = reviewService.findByMovieId(movieId);
+        model.addAttribute("reviews", reviews);
+        return "movieReviews";
     }
 }

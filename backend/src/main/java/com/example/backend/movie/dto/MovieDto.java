@@ -1,4 +1,4 @@
-package com.example.backend.apiCallTest.dto;
+package com.example.backend.movie.dto;
 
 import lombok.Data;
 
