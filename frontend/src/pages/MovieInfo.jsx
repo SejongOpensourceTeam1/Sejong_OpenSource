@@ -9,9 +9,9 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const MovieInfo = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState();
   const [cast, setCast] = useState([]);
-  const [trailerKey, setTrailerKey] = useState(null);
+  const [trailerKey, setTrailerKey] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -107,7 +107,7 @@ const MovieInfo = () => {
           </>
         )}
       </div>
-      <Review />
+      <Review id={id} />
       <Footer />
     </div>
   );
