@@ -4,6 +4,29 @@
   padding: 0 30px;
 }
 
+.genre-label-wrapper {
+  padding-left: 30px;
+  margin-bottom: 0.8rem;
+}
+
+.genre-label {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.6px;
+}
+
+/* 구분선: 제목 아래에 나오는 얇은 선 */
+.genre-divider {
+  width: calc(100% - 30px);
+  height: 1px;
+  background-color: #333;
+  margin-top: 0.4rem;
+}
+
 .slider-container {
   position: relative;
   display: flex;
@@ -16,7 +39,7 @@
   display: flex;
   overflow-x: auto;
   gap: 1.5rem;
-  padding: 1rem 0;
+  padding: 0.3rem 0;
   scroll-behavior: smooth;
   scroll-snap-type: none;
 }

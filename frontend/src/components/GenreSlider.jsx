@@ -18,7 +18,6 @@ const GenreSlider = () => {
       .then((data) => {
         setGenres(data.genres);
 
-        // 2. 각 장르별 영화 요청
         data.genres.forEach((genre) => {
           fetch(
             `https://api.themoviedb.org/3/discover/movie?with_genres=${genre.id}&api_key=${API_KEY}`
@@ -38,7 +37,8 @@ const GenreSlider = () => {
     <div className="genre-wrapper">
       {genres.map((genre) => (
         <div className="genre-section" key={genre.id}>
-          <h3>{genre.name}</h3>
+          <h3 className="genre-label">{genre.name}</h3>
+
           <div className="movie-slider">
             {(genreMovies[genre.name] || []).slice(0, 18).map((movie) => (
               <div

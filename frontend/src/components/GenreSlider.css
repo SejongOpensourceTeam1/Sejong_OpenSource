@@ -8,10 +8,15 @@
   margin-bottom: 2.5rem;
 }
 
-.genre-section h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.7rem;
-  padding-left: 0.5rem;
+/* 제목 (줄 없이) */
+.genre-label {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.6px;
+  margin: 0 0 0.8rem 30px; /* 카드와 정렬 맞추기 */
 }
 
 /* 슬라이더 */

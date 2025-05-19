@@ -71,7 +71,7 @@ const Context = ({ searchKeyword }) => {
       ) : (
         <>
           <ScrollableSlider
-            title="⭐ 평점 높은 영화 Top 10"
+            title="평점 높은 영화 Top 10"
             movies={topRated}
           />
           {genres.map((genre) => (
