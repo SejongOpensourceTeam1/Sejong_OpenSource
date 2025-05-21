@@ -32,8 +32,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         (request) -> request
                                 .requestMatchers("/api/login", "/api/register", "/api/refresh", "/api/logout").permitAll()
-                                .requestMatchers("/api/user/**").authenticated()
-                                .anyRequest().authenticated() // TODO : 일단 권한 전부 열어둠
+                                //.requestMatchers("/api/user/**").authenticated()
+                                //.anyRequest().authenticated() // TODO : 일단 권한 전부 열어둠
+                                .anyRequest().permitAll()
                 )
 
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)

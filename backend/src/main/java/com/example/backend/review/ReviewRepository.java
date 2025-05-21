@@ -1,6 +1,5 @@
 package com.example.backend.review;
 
-import com.example.backend.review.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
