@@ -1,6 +1,5 @@
 package com.example.backend.review;
 
-import com.example.backend.movie.Movie;
 import com.example.backend.user.User;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -18,9 +17,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id", nullable = false)
-    private Movie movie;
+    @Column(nullable = false)
+    private Long movieId;  // TMDB 영화 ID 저장
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -35,8 +33,8 @@ public class Review {
     @Column
     private Long rating;
 
-    public Review(Movie movie, User writer, String content, Long rating) {
-        this.movie = movie;
+    public Review(Long movieId, User writer, String content, Long rating) {
+        this.movieId = movieId;
         this.writer = writer;
         this.content = content;
         this.rating = rating;

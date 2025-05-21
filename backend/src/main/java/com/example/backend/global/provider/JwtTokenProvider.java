@@ -94,4 +94,17 @@ public class JwtTokenProvider {
         }
         return false;
     }
+
+    public String generateTestAccessToken(String username, Long userId) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + 3600000); // 1시간 유효
+
+        return Jwts.builder()
+                .setSubject(Long.toString(userId))
+                .claim("username", username)
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(getSigningKey())  // secretKey는 실제 사용하는 값과 동일해야 함
+                .compact();
+    }
 }
