@@ -1,0 +1,6 @@
+/* 전역 배경 어둡게 설정 */
+body {
+  background-color: #111;
+  margin: 0;
+  padding: 0;
+}

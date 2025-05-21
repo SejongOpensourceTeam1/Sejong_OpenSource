@@ -17,21 +17,18 @@ const MovieInfo = () => {
   useEffect(() => {
     const fetchAll = async () => {
       try {
-        // 영화 상세 정보
         const res1 = await fetch(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=ko`
         );
         const movieData = await res1.json();
         setMovie(movieData);
 
-        // 배우 정보
         const res2 = await fetch(
           `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=ko`
         );
         const creditsData = await res2.json();
-        setCast(creditsData.cast.slice(0, 6)); // 상위 6명만
+        setCast(creditsData.cast.slice(0, 6));
 
-        // 예고편 정보
         const res3 = await fetch(
           `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=ko`
         );
@@ -58,11 +55,30 @@ const MovieInfo = () => {
       <Header />
       <div className="movie-info-container">
         <h1>{movie.title}</h1>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="poster"
-        />
+
+        {/* ✅ 포스터 + 예고편: 조건부 정렬 */}
+        <div
+          className={`poster-trailer-wrapper ${
+            trailerKey ? "with-trailer" : "no-trailer"
+          }`}
+        >
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="poster"
+          />
+          {trailerKey && (
+            <div className="trailer">
+              <iframe
+                src={`https://www.youtube.com/embed/${trailerKey}`}
+                title="예고편"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
+        </div>
+
         <p>{movie.overview}</p>
         <p>
           <strong>개봉일:</strong> {movie.release_date}
@@ -83,29 +99,11 @@ const MovieInfo = () => {
                 }
                 alt={actor.name}
               />
-              <p>
-                <strong>{actor.name}</strong>
-              </p>
+              <p><strong>{actor.name}</strong></p>
               <p className="character">({actor.character})</p>
             </div>
           ))}
         </div>
-
-        {trailerKey && (
-          <>
-            <h2>🎬 예고편</h2>
-            <div className="trailer">
-              <iframe
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${trailerKey}`}
-                title="예고편"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </>
-        )}
       </div>
       <Review id={id} />
       <Footer />
