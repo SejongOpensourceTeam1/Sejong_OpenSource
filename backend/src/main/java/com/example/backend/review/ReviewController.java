@@ -1,47 +1,54 @@
 package com.example.backend.review;
 
-import com.example.backend.movie.Movie;
-import com.example.backend.movie.MovieRepository;
-import com.example.backend.review.Review;
-import com.example.backend.review.ReviewService;
 import com.example.backend.review.dto.ReviewRequest;
-import com.example.backend.review.dto.UserReviewResponse;
-import com.example.backend.user.User;
-import com.example.backend.user.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.example.backend.review.dto.ReviewUpdateRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequiredArgsConstructor
+@RestController
 @RequestMapping("/reviews")
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final UserRepository userRepository;
-    private final MovieRepository movieRepository;
 
-    @PostMapping
-    public String createReview(@ModelAttribute Review review, Model model) {
-        reviewService.create(review);
-        model.addAttribute("message", "리뷰가 성공적으로 작성되었습니다.");
-        return "reviewForm";
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
-
+    // 특정 영화 리뷰 조회 (프론트엔드에서 영화 ID 라우팅 관리)
     @GetMapping("/movie/{movieId}")
-    public String getReviewsByMovieId(@PathVariable Long movieId, Model model) {
-        List<Review> reviews = reviewService.findByMovieId(movieId);
-        model.addAttribute("reviews", reviews);
-        return "movieReviews";
+    public List<Review> getReviewsByMovie(@PathVariable Long movieId) {
+        return reviewService.getByMovieId(movieId);
     }
 
-    @GetMapping("/my/{userId}")
-    public ResponseEntity<List<UserReviewResponse>> getMyReviews(@PathVariable Long userId) {
-        return ResponseEntity.ok(reviewService.getMyReviewMovies(userId));
+    // 전체 리뷰 조회 (관리용)
+    @GetMapping
+    public List<Review> getAllReviews() {
+        return reviewService.getAll();
+    }
+
+    // 리뷰 생성 (movieId, writerId, content, rating 포함)
+    @PostMapping
+    public Review createReview(@RequestBody ReviewRequest request) {
+        return reviewService.create(
+                request.movieId(),
+                request.writerId(),
+                request.content(),
+                request.rating()
+        );
+    }
+
+    // 리뷰 수정 (내용 및 평점 수정 가능)
+    @PutMapping("/{reviewId}")
+    public Review updateReview(@PathVariable Long reviewId,
+                               @RequestBody ReviewUpdateRequest request) {
+        return reviewService.update(reviewId, request.newContent(), request.newRating());
+    }
+
+    // 리뷰 삭제
+    @DeleteMapping("/{reviewId}")
+    public void deleteReview(@PathVariable Long reviewId) {
+        reviewService.delete(reviewId);
     }
 }
