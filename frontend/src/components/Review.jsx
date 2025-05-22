@@ -22,9 +22,17 @@ const Review = ({ id }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        const token = localStorage.getItem("accessToken");
+
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_API_URL}/reviews/movie/${id}`
+          `${import.meta.env.VITE_BACKEND_API_URL}/reviews/movie/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
+
         if (!response.ok) throw new Error("리뷰 불러오기 실패");
 
         const data = await response.json();
@@ -38,7 +46,6 @@ const Review = ({ id }) => {
   }, [id]);
 
   // ✅ 리뷰 등록
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,7 +59,7 @@ const Review = ({ id }) => {
       dateTime: new Date().toISOString(),
     };
 
-    console.log(newReview);
+    console.log("보낼 리뷰 객체:", newReview);
 
     try {
       const response = await fetch(
@@ -61,6 +68,7 @@ const Review = ({ id }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`, // ✅ 추가됨
           },
           body: JSON.stringify(newReview),
         }

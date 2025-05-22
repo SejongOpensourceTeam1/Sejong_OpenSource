@@ -4,9 +4,11 @@ import { useState } from "react";
 import Home from "./pages/Home";
 import Mypage from "./pages/Mypage";
 import MovieInfo from "./pages/MovieInfo";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(localStorage.getItem("accessToken"));
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 

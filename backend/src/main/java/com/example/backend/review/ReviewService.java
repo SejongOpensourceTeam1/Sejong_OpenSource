@@ -22,7 +22,7 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     public ReviewResponse createReview(ReviewRequest request) {
-        var writer = userRepository.findByUsername(request.getUsername())
+        var writer = userRepository.findByUsername(request.getWriter())
                 .orElseThrow(() -> new IllegalArgumentException("작성자가 존재하지 않습니다."));
 
         var review = new Review(request.getMovieId(), writer, request.getContent(), request.getRating(), request.getDateTime());
