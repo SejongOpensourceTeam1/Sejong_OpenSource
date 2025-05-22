@@ -7,7 +7,12 @@ import "../styles/MovieInfo.css";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-const MovieInfo = () => {
+const MovieInfo = ({
+  isLogin,
+  setIsLogin,
+  setShowLoginModal,
+  setShowRegisterModal,
+}) => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
@@ -52,7 +57,12 @@ const MovieInfo = () => {
 
   return (
     <div>
-      <Header />
+      <Header
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        setShowLoginModal={setShowLoginModal}
+        setShowRegisterModal={setShowRegisterModal}
+      />
       <div className="movie-info-container">
         <h1>{movie.title}</h1>
 

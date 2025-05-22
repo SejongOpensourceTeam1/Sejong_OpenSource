@@ -8,13 +8,83 @@ const Review = () => {
   ]);
   const [content, setContent] = useState("");
 
+  const token = localStorage.getItem("accessToken");
+
+  let username = "";
+  let userId;
+  if (token) {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    userId = payload.userId;
+    username = payload.sub;
+  }
+
+  // ✅ 아이디 마스킹 함수
+  const maskUsername = (username) => {
+    if (!username) return "";
+    if (username.length <= 3) return "*".repeat(username.length);
+    return username.slice(0, 3) + "*".repeat(username.length - 3);
+  };
+
+  // ✅ 리뷰 목록 불러오기
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_API_URL}/reviews/movie/${id}`
+        );
+        if (!response.ok) throw new Error("리뷰 불러오기 실패");
+
+        const data = await response.json();
+        setReviews(data); // [{writer, content, rating, date}]
+      } catch (error) {
+        console.error("리뷰 불러오기 오류:", error);
+      }
+    };
+
+    fetchReviews();
+  }, [id]);
+
+  // ✅ 리뷰 등록
+  const handleSubmit = async (e) => {
   const isLoggedIn = !!localStorage.getItem("token");
   const nickname = localStorage.getItem("nickname");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!content.trim()) return;
 
+    const newReview = {
+      movieId: Number(id),
+      writer: Number(userId),
+      content,
+      rating,
+      dateTime: new Date().toISOString(),
+    };
+
+    console.log(newReview);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API_URL}/reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newReview),
+        }
+      );
+
+      if (!response.ok) throw new Error("리뷰 등록 실패");
+
+      // 닉네임 없이 writer만 저장됨
+      setReviews([...reviews, newReview]);
+      setContent("");
+      setRating(10);
+    } catch (error) {
+      console.error("리뷰 등록 중 오류:", error);
+    }
     setReviews([...reviews, { writer: nickname || "익명", content }]);
     setContent("");
   };
