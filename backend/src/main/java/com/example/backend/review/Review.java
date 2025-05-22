@@ -33,11 +33,11 @@ public class Review {
     @Column
     private Long rating;
 
-    public Review(Long movieId, User writer, String content, Long rating) {
+    public Review(Long movieId, User writer, String content, Long rating, LocalDateTime dateTime) {
         this.movieId = movieId;
         this.writer = writer;
         this.content = content;
         this.rating = rating;
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = dateTime;
     }
 }

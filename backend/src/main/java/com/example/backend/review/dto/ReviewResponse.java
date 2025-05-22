@@ -2,6 +2,7 @@ package com.example.backend.review.dto;
 
 import com.example.backend.review.Review;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +14,12 @@ public class ReviewResponse {
     private Long writerId;
     private String content;
     private Long rating;
-    private LocalDate dateTime;
+    private LocalDateTime dateTime;
 
     public ReviewResponse() {
     }
 
-    public ReviewResponse(Long id, Long movieId, Long writerId, String content, Long rating, LocalDate dateTime) {
+    public ReviewResponse(Long id, Long movieId, Long writerId, String content, Long rating, LocalDateTime dateTime) {
         this.id = id;
         this.movieId = movieId;
         this.writerId = writerId;
@@ -34,7 +35,7 @@ public class ReviewResponse {
                 review.getWriter().getId(),
                 review.getContent(),
                 review.getRating(),
-                review.getDateTime().toLocalDate()
+                review.getDateTime()
         );
     }
 

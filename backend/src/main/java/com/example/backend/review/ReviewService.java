@@ -25,7 +25,7 @@ public class ReviewService {
         var writer = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("작성자가 존재하지 않습니다."));
 
-        var review = new Review(request.getMovieId(), writer, request.getContent(), request.getRating());
+        var review = new Review(request.getMovieId(), writer, request.getContent(), request.getRating(), request.getDateTime());
         var savedReview = reviewRepository.save(review);
 
         return ReviewResponse.fromEntity(savedReview);
