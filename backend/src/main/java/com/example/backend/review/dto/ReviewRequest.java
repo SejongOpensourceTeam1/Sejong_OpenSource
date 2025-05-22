@@ -1,6 +1,6 @@
 package com.example.backend.review.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,5 +11,5 @@ public class ReviewRequest {
     private String username;
     private String content;
     private Long rating;
-    private LocalDate dateTime;
+    private LocalDateTime dateTime;
 }

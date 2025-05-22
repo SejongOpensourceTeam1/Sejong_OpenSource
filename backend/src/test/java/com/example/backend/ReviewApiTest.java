@@ -10,6 +10,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,23 +68,23 @@ public class ReviewApiTest {
     private Long createReviewAndReturnId(Long movieId, String content, Long rating) {
         ReviewRequest createRequest = new ReviewRequest();
         createRequest.setMovieId(movieId);
-        createRequest.setUsername(testUser.getUsername()); // testUser에서 가져온 username 사용
+        createRequest.setUsername(testUser.getUsername());
         createRequest.setContent(content);
         createRequest.setRating(rating);
+        createRequest.setDateTime(LocalDateTime.of(2024, 5, 22, 15, 30)); // 현재 시간 또는 원하는 시간 지정 가능
 
-        // 리뷰 생성 API 호출
         ExtractableResponse<Response> response = given()
                 .contentType("application/json")
-                .header("Authorization", "Bearer " + accessToken)  // 토큰 헤더 추가
+                .header("Authorization", "Bearer " + accessToken)
                 .body(createRequest)
                 .when()
                 .post("/reviews")
                 .then()
-                .log().all()  // 요청과 응답 로그 출력
+                .log().all()
                 .statusCode(HttpStatus.OK.value())
                 .extract();
 
-        return response.jsonPath().getLong("id");  // 생성된 리뷰의 ID 반환
+        return response.jsonPath().getLong("id");
     }
 
     @Test
@@ -93,6 +94,7 @@ public class ReviewApiTest {
         request.setUsername(testUser.getUsername()); // testUser에서 가져온 username 사용
         request.setContent("영화 진짜 재밌음!");
         request.setRating(5L);
+        request.setDateTime(LocalDateTime.of(2024, 5, 22, 15, 30)); // 원하는 날짜시간 세팅
 
         // 리뷰 생성 테스트
         given()
@@ -108,7 +110,8 @@ public class ReviewApiTest {
                 .body("movieId", equalTo(1001))
                 .body("writerId", equalTo(testUser.getId().intValue()))
                 .body("content", equalTo("영화 진짜 재밌음!"))
-                .body("rating", equalTo(5));
+                .body("rating", equalTo(5))
+                .body("dateTime", equalTo("2024-05-22T15:30:00")); // dateTime 문자열 검증
     }
 
     @Test
