@@ -14,11 +14,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // 내부 DB용 식별자
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false, unique = true)
+    private Long movieId; // TMDB 고유 영화 ID
+
+    @Column(length = 20)
     private String imdbCode;
 
     @Column(length = 255, nullable = false)

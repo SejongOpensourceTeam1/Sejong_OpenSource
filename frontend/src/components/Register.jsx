@@ -1,4 +1,5 @@
 import "./Modal.css";
+
 import { useState } from "react";
 
 const Register = ({ closeModal, switchToLogin }) => {

@@ -1,65 +1,40 @@
 package com.example.backend.movie;
 
-import com.example.backend.movie.dto.MovieDto;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
+import com.example.backend.external.TmdbClient;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class MovieService {
 
-    private final RestTemplate restTemplate;
     private final MovieRepository movieRepository;
+    private final TmdbClient tmdbClient;
 
-    @Value("${tmdb.api-key}")
-    private String apiKey;
-
-    @Value("${tmdb.base-url}")
-    private String baseUrl;
-
-    public List<MovieDto> searchMovies(String query) {
-        String url = String.format("%s/search/movie?api_key=%s&query=%s", baseUrl, apiKey, query);
-        TmdbSearchResponse response = restTemplate.getForObject(url, TmdbSearchResponse.class);
-
-        return response.getResults().stream().map(result -> {
-            MovieDto dto = new MovieDto();
-            dto.setId(result.getId());
-            dto.setTitle(result.getTitle());
-            dto.setOverview(result.getOverview());
-            dto.setPosterPath(result.getPosterPath());
-            return dto;
-        }).collect(Collectors.toList());
+    public MovieService(MovieRepository movieRepository, TmdbClient tmdbClient) {
+        this.movieRepository = movieRepository;
+        this.tmdbClient = tmdbClient;
     }
 
-    private static class TmdbSearchResponse {
-        private List<TmdbMovieResult> results;
-        public List<TmdbMovieResult> getResults() { return results; }
-        public void setResults(List<TmdbMovieResult> results) { this.results = results; }
+    // TMDB movieId로 조회
+    public Optional<Movie> findByMovieId(Long movieId) {
+        return movieRepository.findByMovieId(movieId);
     }
 
-    private static class TmdbMovieResult {
-        @Setter
-        @Getter
-        private Long id;
-        @Setter
-        @Getter
-        private String title;
-        @Setter
-        @Getter
-        private String overview;
-        private String poster_path;
-
-        public String getPosterPath() { return poster_path; }
-
-        public void setPosterPath(String poster_path) { this.poster_path = poster_path; }
+    // 리뷰 등록 시 사용: 이미 있으면 조회, 없으면 저장
+    public Movie saveIfNotExists(Long movieId) {
+        return movieRepository.findByMovieId(movieId)
+                .orElseGet(() -> {
+                    Movie movie = tmdbClient.fetchMovieById(movieId);
+                    if (movie == null) {
+                        throw new IllegalArgumentException("해당 영화 정보를 찾을 수 없습니다.");
+                    }
+                    return movieRepository.save(movie);
+                });
     }
 
+    // ID로 조회 (기본 키)
+    public Optional<Movie> findById(Long id) {
+        return movieRepository.findById(id);
+    }
 }
