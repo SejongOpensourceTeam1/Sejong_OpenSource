@@ -13,19 +13,17 @@ const Header = ({
   const nav = useNavigate();
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("nickname");
+    localStorage.removeItem("accessToken");
     setIsLogin(false);
     window.location.reload();
   };
 
-  // input이 변경될 때마다 부모로 전달
   useEffect(() => {
     const timer = setTimeout(() => {
       onSearch(input.trim());
-    }, 100); // 디바운싱: 100ms 대기 후 실행
+    }, 100);
 
-    return () => clearTimeout(timer); // 이전 타이머 제거
+    return () => clearTimeout(timer);
   }, [input, onSearch]);
 
   return (

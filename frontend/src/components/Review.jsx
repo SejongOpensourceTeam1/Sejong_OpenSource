@@ -17,7 +17,15 @@ const Review = ({ id }) => {
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(10);
 
-  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("accessToken");
+
+  let username = "";
+  let userId;
+  if (token) {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    userId = payload.userId;
+    username = payload.sub;
+  }
 
   // ✅ 아이디 마스킹 함수
   const maskUsername = (username) => {
@@ -31,7 +39,7 @@ const Review = ({ id }) => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_API_URL}/movie/${id}/reviews`
+          `${import.meta.env.VITE_BACKEND_API_URL}/reviews/movie/${id}`
         );
         if (!response.ok) throw new Error("리뷰 불러오기 실패");
 
@@ -48,22 +56,27 @@ const Review = ({ id }) => {
   // ✅ 리뷰 등록
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!content.trim()) return;
 
     const newReview = {
-      movieId: id,
-      writer: username,
+      movieId: Number(id),
+      writer: Number(userId),
       content,
       rating,
       dateTime: new Date().toISOString(),
     };
 
+    console.log(newReview);
+
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_API_URL}/movie/${id}`,
+        `${import.meta.env.VITE_BACKEND_API_URL}/reviews`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(newReview),
         }
       );

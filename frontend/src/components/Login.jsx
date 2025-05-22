@@ -22,15 +22,19 @@ const Login = ({ closeModal, onLoginSuccess, switchToRegister }) => {
         `${import.meta.env.VITE_BACKEND_API_URL}/api/login`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(formData),
         }
       );
 
       if (res.ok) {
         const result = await res.json();
-        localStorage.setItem("token", result.token); // ✅ JWT 저장
-        localStorage.setItem("nickname", result.nickname); // 선택
+
+        localStorage.setItem("accessToken", result.accessToken); // ✅ JWT 저장
+        //        localStorage.setItem("username", result.username); // 선택
+        console.log(result);
         onLoginSuccess();
         closeModal();
         window.location.reload();
