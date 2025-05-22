@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class ReviewRequest {
     private Long movieId;
-    private String username;
+    private String writer;
     private String content;
     private Long rating;
     private LocalDateTime dateTime;

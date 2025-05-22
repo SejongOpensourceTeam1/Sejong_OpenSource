@@ -115,7 +115,7 @@ const MovieInfo = ({
           ))}
         </div>
       </div>
-      <Review />
+      <Review id={id}/>
       <Footer />
     </div>
   );

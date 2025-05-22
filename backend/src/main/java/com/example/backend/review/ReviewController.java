@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
@@ -18,6 +21,13 @@ public class ReviewController {
 
     @PostMapping
     public ResponseEntity<ReviewResponse> createReview(@RequestBody ReviewRequest request) {
+        log.info("리뷰 등록 요청 - movieId: {}, username: {}, content: {}, rating: {}, dateTime: {}",
+                request.getMovieId(),
+                request.getWriter(),
+                request.getContent(),
+                request.getRating(),
+                request.getDateTime());
+
         ReviewResponse response = reviewService.createReview(request);
         return ResponseEntity.ok(response);
     }
