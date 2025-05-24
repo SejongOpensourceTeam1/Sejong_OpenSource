@@ -39,6 +39,7 @@ public class WebSecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/api/login", "/api/register", "/api/refresh", "/api/logout").permitAll()
+                        .requestMatchers("/reviews/movie/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

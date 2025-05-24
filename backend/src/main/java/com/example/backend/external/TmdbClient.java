@@ -1,37 +1,38 @@
 package com.example.backend.external;
 
 import com.example.backend.movie.Movie;
-import java.time.LocalDate;
+import com.example.backend.movie.dto.MovieDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@RequiredArgsConstructor
 public class TmdbClient {
 
     private final RestTemplate restTemplate;
-    private final String apiKey = "YOUR_TMDB_API_KEY";
-    private final String tmdbApiUrl = "https://api.themoviedb.org/3/movie/";
 
-    public TmdbClient(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    @Value("${tmdb.api-key}")
+    private String apiKey;
+
+    @Value("${tmdb.base-url}")
+    private String baseUrl;
 
     public Movie fetchMovieById(Long movieId) {
-        String url = tmdbApiUrl + movieId + "?api_key=" + apiKey + "&language=ko-KR";
+        String url = baseUrl + "/movie/" + movieId + "?api_key=" + apiKey + "&language=ko-KR";
 
-        MovieDto movieDTO = restTemplate.getForObject(url, MovieDto.class);
+        MovieDto movieDto = restTemplate.getForObject(url, MovieDto.class);
 
-        if (movieDTO == null) {
+        if (movieDto == null) {
             return null;
         }
 
-        Movie movie = new Movie();
-        movie.setImdbCode(movieDTO.getImdbId());
-        movie.setTitle(movieDTO.getTitle());
-        movie.setDirector("");  // 필요하면 별도 API 호출
-        movie.setReleaseDate(LocalDate.parse(movieDTO.getReleaseDate()));
-        movie.setCoverImage("https://image.tmdb.org/t/p/w500" + movieDTO.getPosterPath());
-
-        return movie;
+        return Movie.builder()
+                .id(movieDto.getId())
+                .title(movieDto.getTitle())
+                .rating(Double.valueOf(movieDto.getRating()))
+                .posterPath("https://image.tmdb.org/t/p/w500" + movieDto.getPosterPath())
+                .build();
     }
 }

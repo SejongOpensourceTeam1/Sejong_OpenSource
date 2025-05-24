@@ -68,7 +68,7 @@ public class ReviewApiTest {
     private Long createReviewAndReturnId(Long movieId, String content, Long rating) {
         ReviewRequest createRequest = new ReviewRequest();
         createRequest.setMovieId(movieId);
-        createRequest.setUsername(testUser.getUsername());
+        createRequest.setWriter(testUser.getUsername());
         createRequest.setContent(content);
         createRequest.setRating(rating);
         createRequest.setDateTime(LocalDateTime.of(2024, 5, 22, 15, 30)); // 현재 시간 또는 원하는 시간 지정 가능
@@ -91,7 +91,7 @@ public class ReviewApiTest {
     void createReviewTest() {
         ReviewRequest request = new ReviewRequest();
         request.setMovieId(1001L);
-        request.setUsername(testUser.getUsername()); // testUser에서 가져온 username 사용
+        request.setWriter(testUser.getUsername()); // testUser에서 가져온 username 사용
         request.setContent("영화 진짜 재밌음!");
         request.setRating(5L);
         request.setDateTime(LocalDateTime.of(2024, 5, 22, 15, 30)); // 원하는 날짜시간 세팅

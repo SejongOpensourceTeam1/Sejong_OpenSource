@@ -1,38 +1,26 @@
 package com.example.backend.movie;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.LocalDate;
-
+@Entity
+@Table(name = "movie")
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 내부 DB용 식별자
+    private Long id; // TMDB 영화 고유 ID
 
-    @Column(nullable = false, unique = true)
-    private Long movieId; // TMDB 고유 영화 ID
+    @Column(nullable = false)
+    private String title; // 영화 제목
 
-    @Column(length = 20)
-    private String imdbCode;
+    @Column(name = "poster_path")
+    private String posterPath; // 포스터 경로
 
-    @Column(length = 255, nullable = false)
-    private String title;
-
-    @Column(length = 255)
-    private String director;
-
-    private LocalDate releaseDate;
-
-    @Column
-    private String coverImage;
+    @Column(name = "rating", precision = 3)
+    private Double rating; // 평점 (예: 8.3)
 }

@@ -37,6 +37,7 @@ const Review = ({ id }) => {
 
         const data = await response.json();
         setReviews(data); // [{writer, content, rating, date}]
+        console.log(data);
       } catch (error) {
         console.error("리뷰 불러오기 오류:", error);
       }
