@@ -8,8 +8,10 @@ import com.example.backend.review.dto.ReviewRequest;
 import com.example.backend.review.dto.UserReviewResponse;
 import com.example.backend.user.User;
 import com.example.backend.user.UserRepository;
+import com.example.backend.user.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +42,10 @@ public class ReviewController {
         return "movieReviews";
     }
 
-    @GetMapping("/my/{userId}")
-    public ResponseEntity<List<UserReviewResponse>> getMyReviews(@PathVariable Long userId) {
+    @GetMapping("/my")
+    public ResponseEntity<List<UserReviewResponse>> getMyReviews(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        Long userId = userDetails.getId();
         return ResponseEntity.ok(reviewService.getMyReviewMovies(userId));
     }
+
 }
