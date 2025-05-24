@@ -45,7 +45,6 @@ const Review = ({ id }) => {
         );
 
         if (!response.ok) throw new Error("리뷰 불러오기 실패");
-
         const data = await response.json();
         setReviews(data);
       } catch (error) {

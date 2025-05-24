@@ -1,5 +1,6 @@
 package com.example.backend.review;
 
+import com.example.backend.external.TmdbClient;
 import com.example.backend.movie.MovieRepository;
 import com.example.backend.user.UserRepository;
 import com.example.backend.review.dto.ReviewRequest;
@@ -20,12 +21,27 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
+    private final TmdbClient tmdbClient;
 
     public ReviewResponse createReview(ReviewRequest request) {
         var writer = userRepository.findByUsername(request.getWriter())
                 .orElseThrow(() -> new IllegalArgumentException("작성자가 존재하지 않습니다."));
 
-        var review = new Review(request.getMovieId(), writer, request.getContent(), request.getRating(), request.getDateTime());
+        // ⭐ 영화가 DB에 없으면 TMDB에서 가져와 캐싱
+        if (!movieRepository.existsById(request.getMovieId())) {
+            var movie = tmdbClient.fetchMovieById(request.getMovieId());
+            if (movie != null) {
+                movieRepository.save(movie);
+            }
+        }
+
+        var review = new Review(
+                request.getMovieId(),
+                writer,
+                request.getContent(),
+                request.getRating(),
+                request.getDateTime()
+        );
         var savedReview = reviewRepository.save(review);
 
         return ReviewResponse.fromEntity(savedReview);

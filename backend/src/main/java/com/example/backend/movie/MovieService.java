@@ -1,40 +1,32 @@
 package com.example.backend.movie;
 
 import com.example.backend.external.TmdbClient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class MovieService {
 
     private final MovieRepository movieRepository;
     private final TmdbClient tmdbClient;
 
-    public MovieService(MovieRepository movieRepository, TmdbClient tmdbClient) {
-        this.movieRepository = movieRepository;
-        this.tmdbClient = tmdbClient;
-    }
+    public Movie getOrFetchMovie(Long movieId) {
+        // 1. DB에 캐시된 영화 있는지 확인
+        Optional<Movie> cachedMovie = movieRepository.findById(movieId);
+        if (cachedMovie.isPresent()) {
+            return cachedMovie.get();
+        }
 
-    // TMDB movieId로 조회
-    public Optional<Movie> findByMovieId(Long movieId) {
-        return movieRepository.findByMovieId(movieId);
-    }
+        // 2. 없으면 TMDB에서 fetch
+        Movie fetchedMovie = tmdbClient.fetchMovieById(movieId);
+        if (fetchedMovie == null) {
+            throw new IllegalArgumentException("영화 정보를 TMDB에서 찾을 수 없습니다. ID: " + movieId);
+        }
 
-    // 리뷰 등록 시 사용: 이미 있으면 조회, 없으면 저장
-    public Movie saveIfNotExists(Long movieId) {
-        return movieRepository.findByMovieId(movieId)
-                .orElseGet(() -> {
-                    Movie movie = tmdbClient.fetchMovieById(movieId);
-                    if (movie == null) {
-                        throw new IllegalArgumentException("해당 영화 정보를 찾을 수 없습니다.");
-                    }
-                    return movieRepository.save(movie);
-                });
-    }
-
-    // ID로 조회 (기본 키)
-    public Optional<Movie> findById(Long id) {
-        return movieRepository.findById(id);
+        // 3. DB에 저장 후 반환
+        return movieRepository.save(fetchedMovie);
     }
 }
