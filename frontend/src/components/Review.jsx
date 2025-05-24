@@ -3,8 +3,18 @@ import "./Review.css";
 
 const Review = ({ id }) => {
   const [reviews, setReviews] = useState([
-    { writer: "홍길동", content: "정말 재미있었어요!" },
-    { writer: "김영희", content: "배우 연기가 인상 깊었어요." },
+    {
+      writer: "sejong123",
+      content: "정말 재미있었어요!",
+      rating: 9,
+      dateTime: "2025-05-21",
+    },
+    {
+      writer: "software123",
+      content: "배우 연기가 인상 깊었어요.",
+      rating: 8,
+      dateTime: "2025-05-22",
+    },
   ]);
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(10);
@@ -29,6 +39,7 @@ const Review = ({ id }) => {
           {
             headers: {
               Authorization: `Bearer ${token}`,
+              "ngrok-skip-browser-warning": "true", // ✅ 요거 추가!
             },
           }
         );
@@ -36,7 +47,7 @@ const Review = ({ id }) => {
         if (!response.ok) throw new Error("리뷰 불러오기 실패");
 
         const data = await response.json();
-        setReviews(data); // [{writer, content, rating, date}]
+        setReviews(data);
       } catch (error) {
         console.error("리뷰 불러오기 오류:", error);
       }
@@ -68,7 +79,7 @@ const Review = ({ id }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`, // ✅ 추가됨
+            Authorization: `Bearer ${token}`, // ✅ 추가됨
           },
           body: JSON.stringify(newReview),
         }
@@ -97,6 +108,7 @@ const Review = ({ id }) => {
               <strong>{review.writer}</strong> - 평점: {review.rating}점
             </p>
             <p>{review.content}</p>
+            <p>{review.dateTime.substring(0, 10)}</p>
           </li>
         ))}
       </ul>
