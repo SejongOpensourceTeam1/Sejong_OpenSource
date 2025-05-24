@@ -1,3 +1,11 @@
 package com.example.backend.review.dto;
 
-public record ReviewUpdateRequest(String newContent) { }
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ReviewUpdateRequest{
+    String content;
+    Long rating;
+}

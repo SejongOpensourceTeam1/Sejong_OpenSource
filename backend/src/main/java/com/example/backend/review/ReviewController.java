@@ -1,11 +1,6 @@
 package com.example.backend.review;
 
-import com.example.backend.movie.Movie;
-import com.example.backend.movie.MovieRepository;
-import com.example.backend.review.Review;
-import com.example.backend.review.ReviewService;
 import com.example.backend.review.dto.ReviewRequest;
-import com.example.backend.review.dto.UserReviewResponse;
 import com.example.backend.user.User;
 import com.example.backend.user.UserRepository;
 import com.example.backend.user.security.CustomUserDetails;
@@ -14,38 +9,65 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import com.example.backend.review.dto.ReviewResponse;
+import com.example.backend.review.dto.ReviewUpdateRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequiredArgsConstructor
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestController
 @RequestMapping("/reviews")
+@RequiredArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final UserRepository userRepository;
-    private final MovieRepository movieRepository;
 
     @PostMapping
-    public String createReview(@ModelAttribute Review review, Model model) {
-        reviewService.create(review);
-        model.addAttribute("message", "리뷰가 성공적으로 작성되었습니다.");
-        return "reviewForm";
+    public ResponseEntity<ReviewResponse> createReview(@RequestBody ReviewRequest request) {
+        log.info("리뷰 등록 요청 - movieId: {}, username: {}, content: {}, rating: {}, dateTime: {}",
+                request.getMovieId(),
+                request.getWriter(),
+                request.getContent(),
+                request.getRating(),
+                request.getDateTime());
+
+        ReviewResponse response = reviewService.createReview(request);
+        return ResponseEntity.ok(response);
     }
 
-
     @GetMapping("/movie/{movieId}")
-    public String getReviewsByMovieId(@PathVariable Long movieId, Model model) {
-        List<Review> reviews = reviewService.findByMovieId(movieId);
-        model.addAttribute("reviews", reviews);
-        return "movieReviews";
+    public ResponseEntity<List<ReviewResponse>> getReviewsByMovieId(@PathVariable Long movieId) {
+        List<ReviewResponse> reviews = reviewService.getReviewsByMovieId(movieId);
+        return ResponseEntity.ok(reviews);
+    }
+
+    @GetMapping("/writer/{writerId}")
+    public ResponseEntity<List<ReviewResponse>> getReviewsByWriterId(@PathVariable Long writerId) {
+        List<ReviewResponse> reviews = reviewService.getReviewsByWriterId(writerId);
+        return ResponseEntity.ok(reviews);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReviewResponse> updateReview(
+            @PathVariable Long id,
+            @RequestBody ReviewUpdateRequest request) {
+        ReviewResponse updated = reviewService.updateReview(id, request);
+        return ResponseEntity.ok(updated);
     }
 
     @GetMapping("/my")
     public ResponseEntity<List<UserReviewResponse>> getMyReviews(@AuthenticationPrincipal CustomUserDetails userDetails) {
         Long userId = userDetails.getId();
         return ResponseEntity.ok(reviewService.getMyReviewMovies(userId));
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
+        reviewService.deleteReview(id);
+        return ResponseEntity.noContent().build();
+      
     }
 
 }

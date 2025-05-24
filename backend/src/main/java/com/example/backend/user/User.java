@@ -16,10 +16,10 @@ public class User {
     private Long id;
 
     @Column(length = 50, nullable = false, unique = true)
-    private String username;  // 유저가 쓰는 아이디
+    private String username;
 
     @Column(length = 50, nullable = false, unique = true)
-    private String nickname;  // 유저 닉네임
+    private String nickname;
 
     @Column(length = 100, nullable = false)
     private String password;

@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -27,8 +28,12 @@ const dummyReviews = [
   },
 ];
 
-const Mypage = () => {
-  //const nickname = localStorage.getItem("nickname");
+const Mypage = ({
+  isLogin,
+  setIsLogin,
+  setShowLoginModal,
+  setShowRegisterModal,
+}) => {
   const nickname = "peachgirl";
   const [myReviews, setMyReviews] = useState([]);
   const navigate = useNavigate();
@@ -40,7 +45,12 @@ const Mypage = () => {
 
   return (
     <div>
-      <Header />
+      <Header
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        setShowLoginModal={setShowLoginModal}
+        setShowRegisterModal={setShowRegisterModal}
+      />
       <div className="mypage-container">
         <h2>📌 내가 리뷰 쓴 영화</h2>
         {myReviews.length === 0 ? (
@@ -64,6 +74,7 @@ const Mypage = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

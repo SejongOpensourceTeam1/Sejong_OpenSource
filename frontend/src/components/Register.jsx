@@ -1,4 +1,5 @@
 import "./Modal.css";
+
 import { useState } from "react";
 
 const Register = ({ closeModal, switchToLogin }) => {
@@ -29,7 +30,9 @@ const Register = ({ closeModal, switchToLogin }) => {
         `${import.meta.env.VITE_BACKEND_API_URL}/api/register`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             nickname: formData.nickname,
             username: formData.username,
