@@ -1,14 +1,10 @@
 package com.example.backend.review;
 
 import com.example.backend.review.dto.ReviewRequest;
-import com.example.backend.user.User;
-import com.example.backend.user.UserRepository;
 import com.example.backend.user.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import com.example.backend.review.dto.ReviewResponse;
 import com.example.backend.review.dto.ReviewUpdateRequest;
 import org.springframework.web.bind.annotation.*;
@@ -57,11 +53,6 @@ public class ReviewController {
         ReviewResponse updated = reviewService.updateReview(id, request);
         return ResponseEntity.ok(updated);
     }
-
-    @GetMapping("/my")
-    public ResponseEntity<List<UserReviewResponse>> getMyReviews(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        Long userId = userDetails.getId();
-        return ResponseEntity.ok(reviewService.getMyReviewMovies(userId));
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
