@@ -39,12 +39,12 @@ public class MovieService {
         return movieRepository.save(fetchedMovie);
     }
 
-    public List<Movie> getMoviesReviewedByUserId(Long userId) {
-        User user = userRepository.findById(userId)
+    public List<Movie> getMoviesReviewedByUserId(String userId) {
+        User user = userRepository.findByUsername(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다: " + userId));
 
         // 변경된 메서드 이름 사용
-        List<Review> reviews = reviewRepository.findByWriterId((user.getId()));
+        List<Review> reviews = reviewRepository.findByWriter(user);
 
         Set<Long> movieIds = reviews.stream()
                 .map(Review::getMovieId)

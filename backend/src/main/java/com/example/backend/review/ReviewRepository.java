@@ -1,5 +1,6 @@
 package com.example.backend.review;
 
+import com.example.backend.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -8,6 +9,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByMovieId(Long movieId);
-    @Query("select r from Review r where r.writer.id = :writerId")
-    List<Review> findByWriterId(@Param("writerId") Long writerId);
+    List<Review> findByWriter(User writer);
 }
