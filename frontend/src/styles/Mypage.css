@@ -1,3 +1,89 @@
+.mypage-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #000000;
+  border-radius: 0; /* <- 둥근 모서리 제거 */
+  color: #f0f0f0;
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+box-shadow: 0 0 0 2px #222; /* 더 딱딱한 외곽선 느낌 */
+}
+
+.user-information {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
 .user-information p {
-  color: #eee;
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #f0f0f0;
+}
+
+.user-information p.nickname {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.user-information p.username {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-top: 0.2rem;
+}
+
+.mypage-container h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.5rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.movie-item {
+  width: 180px;
+  background-color: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.movie-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.movie-item img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.6rem;
+}
+
+.movie-item p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+.movie-item small {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+@media (max-width: 600px) {
+  .movie-item {
+    width: 100%;
+  }
 }
