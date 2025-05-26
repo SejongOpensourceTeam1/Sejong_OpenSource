@@ -32,9 +32,12 @@ const ScrollableSlider = ({ title, movies }) => {
           <h3 className="genre-label">{title}</h3>
         </div>
         <div className="slider-container">
-          <button className="arrow-button circle left" onClick={scrollLeft}>
-            &#10094;
-          </button>
+          {/* 화살표는 6개 이상일 때만 보여줌 */}
+          {movies.length >= 6 && (
+            <button className="arrow-button circle left" onClick={scrollLeft}>
+              &#10094;
+            </button>
+          )}
           <div className="movie-slider" ref={sliderRef}>
             {movies.map((movie) => (
               <div
@@ -57,9 +60,11 @@ const ScrollableSlider = ({ title, movies }) => {
               </div>
             ))}
           </div>
-          <button className="arrow-button circle right" onClick={scrollRight}>
-            &#10095;
-          </button>
+          {movies.length >= 6 && (
+            <button className="arrow-button circle right" onClick={scrollRight}>
+              &#10095;
+            </button>
+          )}
         </div>
       </div>
     </div>
