@@ -55,13 +55,15 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
+    /*
     @Transactional(readOnly = true)
-    public List<ReviewResponse> getReviewsByWriterId(Long writerId) {
-        List<Review> reviews = reviewRepository.findByWriterId(writerId);
+    public List<ReviewResponse> getReviewsByWriterId(String writerId) {
+        List<Review> reviews = reviewRepository.findByWriteId(writerId);
         return reviews.stream()
                 .map(ReviewResponse::fromEntity)
                 .collect(Collectors.toList());
     }
+    */
 
     public ReviewResponse updateReview(Long reviewId, ReviewUpdateRequest request) {
         Review review = reviewRepository.findById(reviewId)

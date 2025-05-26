@@ -166,7 +166,7 @@ public class MovieApiTest {
                 .log().all()
                 .header("Authorization", "Bearer " + accessToken)
                 .when()
-                .get("/movies/reviewed/{userId}", testUser.getId())
+                .get("/movies/reviewed/{userId}", testUser.getUsername())
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.OK.value())

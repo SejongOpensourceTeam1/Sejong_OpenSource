@@ -22,7 +22,7 @@ public class MovieController {
     }
 
     @GetMapping("/reviewed/{userId}")
-    public ResponseEntity<List<Movie>> getReviewedMoviesByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<Movie>> getReviewedMoviesByUserId(@PathVariable String userId) {
         List<Movie> movies = movieService.getMoviesReviewedByUserId(userId);
         return ResponseEntity.ok(movies);
     }

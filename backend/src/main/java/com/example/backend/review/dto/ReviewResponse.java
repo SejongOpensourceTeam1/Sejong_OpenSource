@@ -11,7 +11,7 @@ import lombok.Setter;
 public class ReviewResponse {
     private Long id;
     private Long movieId;
-    private Long writerId;
+    private String writerId;
     private String content;
     private Long rating;
     private LocalDateTime dateTime;
@@ -19,7 +19,7 @@ public class ReviewResponse {
     public ReviewResponse() {
     }
 
-    public ReviewResponse(Long id, Long movieId, Long writerId, String content, Long rating, LocalDateTime dateTime) {
+    public ReviewResponse(Long id, Long movieId, String writerId, String content, Long rating, LocalDateTime dateTime) {
         this.id = id;
         this.movieId = movieId;
         this.writerId = writerId;
@@ -32,7 +32,7 @@ public class ReviewResponse {
         return new ReviewResponse(
                 review.getId(),
                 review.getMovieId(),
-                review.getWriter().getId(),
+                review.getWriter().getUsername(),
                 review.getContent(),
                 review.getRating(),
                 review.getDateTime()
