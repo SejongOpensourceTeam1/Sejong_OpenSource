@@ -135,8 +135,9 @@ const Mypage = ({
       />
       <div className="mypage-container">
         <div className="user-information">
-          <p>닉네임 : {userInfo.nickname}</p>
-          <p>아이디 : {userInfo.username}</p>
+          <p className="nickname">name{userInfo.nickname}</p>
+          <p className="username">@{userInfo.username}</p>
+          <p className="review-count">내 리뷰 수 : {myReviews.length}</p>
         </div>
         <h2>📌 내가 리뷰 쓴 영화</h2>
         {myReviews.length === 0 ? (
