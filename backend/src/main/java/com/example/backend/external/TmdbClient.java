@@ -31,7 +31,7 @@ public class TmdbClient {
         return Movie.builder()
                 .id(movieDto.getId())
                 .title(movieDto.getTitle())
-                .rating(Double.valueOf(movieDto.getRating()))
+                .rating(movieDto.getRating())
                 .posterPath("https://image.tmdb.org/t/p/w500" + movieDto.getPosterPath())
                 .build();
     }

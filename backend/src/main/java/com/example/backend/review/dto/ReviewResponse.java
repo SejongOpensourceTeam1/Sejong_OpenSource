@@ -1,7 +1,6 @@
 package com.example.backend.review.dto;
 
 import com.example.backend.review.Review;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import lombok.Setter;
 public class ReviewResponse {
     private Long id;
     private Long movieId;
-    private String writerId;
+    private String writer;
     private String content;
     private Long rating;
     private LocalDateTime dateTime;
@@ -19,10 +18,10 @@ public class ReviewResponse {
     public ReviewResponse() {
     }
 
-    public ReviewResponse(Long id, Long movieId, String writerId, String content, Long rating, LocalDateTime dateTime) {
+    public ReviewResponse(Long id, Long movieId, String writer, String content, Long rating, LocalDateTime dateTime) {
         this.id = id;
         this.movieId = movieId;
-        this.writerId = writerId;
+        this.writer = writer;
         this.content = content;
         this.rating = rating;
         this.dateTime = dateTime;

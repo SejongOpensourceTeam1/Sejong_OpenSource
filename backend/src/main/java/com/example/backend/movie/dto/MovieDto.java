@@ -9,6 +9,6 @@ import lombok.Setter;
 public class MovieDto {
     private Long id;
     private String title;
-    private Double rating;
+    private Number rating;
     private String posterPath;
 }
