@@ -22,5 +22,5 @@ public class Movie {
     private String posterPath; // 포스터 경로
 
     @Column(name = "rating", precision = 3)
-    private Double rating; // 평점 (예: 8.3)
+    private Number rating; // 평점 (예: 8.3)
 }

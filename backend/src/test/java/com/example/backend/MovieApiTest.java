@@ -159,7 +159,7 @@ public class MovieApiTest {
 
         Review savedReview = reviewRepository.save(review);
         System.out.println("Saved Review ID: " + savedReview.getId());
-        System.out.println("Saved Review writer ID: " + savedReview.getWriter().getId());
+        System.out.println("Saved Review writerId ID: " + savedReview.getWriterId().getId());
         System.out.println("Saved Review movie ID: " + savedReview.getMovieId());
 
         given()
