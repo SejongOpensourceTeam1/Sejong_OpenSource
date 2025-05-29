@@ -40,14 +40,6 @@ public class ReviewController {
         return ResponseEntity.ok(reviews);
     }
 
-    /*
-    @GetMapping("/writerId/{writerId}")
-    public ResponseEntity<List<ReviewResponse>> getReviewsByWriterId(@PathVariable Long writerId) {
-        List<ReviewResponse> reviews = reviewService.getReviewsByWriterId(writerId);
-        return ResponseEntity.ok(reviews);
-    }
-     */
-
     @PutMapping("/{id}")
     public ResponseEntity<ReviewResponse> updateReview(
             @PathVariable Long id,
