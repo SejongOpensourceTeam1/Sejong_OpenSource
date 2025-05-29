@@ -4,16 +4,10 @@ import "./Review.css";
 const Review = ({ id }) => {
   const [reviews, setReviews] = useState([
     {
-      writer: "sejong123",
-      content: "정말 재미있었어요!",
-      rating: 9,
-      dateTime: "2025-05-21",
-    },
-    {
-      writer: "software123",
-      content: "배우 연기가 인상 깊었어요.",
-      rating: 8,
-      dateTime: "2025-05-22",
+      writer: "",
+      content: "",
+      rating: 0,
+      dateTime: "",
     },
   ]);
   const [content, setContent] = useState("");
