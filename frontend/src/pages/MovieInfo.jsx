@@ -55,8 +55,6 @@ const MovieInfo = ({
   if (loading) return <div>불러오는 중...</div>;
   if (!movie) return <div>영화를 찾을 수 없습니다.</div>;
 
-  console.log("리뷰 자료형:", typeof movie.vote_average);
-
   return (
     <div>
       <Header

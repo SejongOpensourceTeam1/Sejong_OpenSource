@@ -15,6 +15,7 @@ const Header = ({
   const logout = () => {
     localStorage.removeItem("accessToken");
     setIsLogin(false);
+    nav("/");
     window.location.reload();
   };
 
