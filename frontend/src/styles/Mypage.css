@@ -5,8 +5,8 @@
   background-color: #000000;
   border-radius: 0; /* <- 둥근 모서리 제거 */
   color: #f0f0f0;
-  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
-box-shadow: 0 0 0 2px #222; /* 더 딱딱한 외곽선 느낌 */
+  font-family: "Segoe UI", "Noto Sans KR", sans-serif;
+  box-shadow: 0 0 0 2px #222; /* 더 딱딱한 외곽선 느낌 */
 }
 
 .user-information {
@@ -42,10 +42,9 @@ box-shadow: 0 0 0 2px #222; /* 더 딱딱한 외곽선 느낌 */
 }
 
 .movie-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 .movie-item {

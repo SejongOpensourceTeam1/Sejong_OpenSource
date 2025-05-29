@@ -101,7 +101,9 @@ const Mypage = ({
         <div className="user-information">
           <p className="nickname">{userInfo.nickname}</p>
           <p className="username">id : {userInfo.username}</p>
-          <p className="review-count">내 리뷰 수 : {myReviews.length}</p>
+          <p className="review-count">
+            리뷰 작성한 영화 수 : {myReviews.length}
+          </p>
         </div>
         <h2>📌 내가 리뷰 쓴 영화</h2>
         {myReviews.length === 0 ? (
