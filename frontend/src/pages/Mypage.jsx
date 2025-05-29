@@ -35,7 +35,6 @@ const Mypage = ({
   setShowLoginModal,
   setShowRegisterModal,
 }) => {
-  // const nickname = "peachgirl";
   const [myReviews, setMyReviews] = useState([dummyReviews]);
   const [userInfo, setUserInfo] = useState({
     nickname: "",
@@ -43,10 +42,12 @@ const Mypage = ({
   });
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const mine = dummyReviews.filter((review) => review.writer === nickname);
-  //   setMyReviews(mine);
-  // }, [nickname]);
+  const token = localStorage.getItem("accessToken");
+  let username = "";
+  if (token) {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    username = payload.sub;
+  }
 
   // 유저 정보 불러오기
   useEffect(() => {
@@ -59,7 +60,7 @@ const Mypage = ({
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "ngrok-skip-browser-warning": "true", // ✅ 요거 추가!
+              "ngrok-skip-browser-warning": "true", // ngrok 자동 막음 방지
             },
           }
         );
@@ -76,54 +77,82 @@ const Mypage = ({
     fetchUserInfo();
   }, []);
 
-  // ✅ 리뷰 쓴 영화 목록 불러오기
+  // 리뷰 정보 불러오기
   useEffect(() => {
-    const fetchReviewMovies = async () => {
+    const fetchReviews = async () => {
       try {
         const token = localStorage.getItem("accessToken");
 
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_API_URL}/mypage`,
+          `${import.meta.env.VITE_BACKEND_API_URL}/movies/reviewed/${username}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "ngrok-skip-browser-warning": "true", // ✅ 요거 추가!
+              "ngrok-skip-browser-warning": "true", // ngrok 자동 막음 방지
             },
           }
         );
 
-        if (!response.ok) throw new Error("리뷰 작성한 영화 불러오기 실패");
+        if (!response.ok) throw new Error("리뷰 정보 불러오기 실패");
 
         const reviews = await response.json();
-        console.log(reviews);
-
-        // ✅ 각 리뷰에 대해 영화 정보 요청
-        const enrichedReviews = await Promise.all(
-          reviews.map(async (review) => {
-            const movieRes = await fetch(
-              `https://api.themoviedb.org/3/movie/${review.movieId}?api_key=${
-                import.meta.env.VITE_TMDB_API_KEY
-              }&language=ko`
-            );
-            const movie = await movieRes.json();
-
-            return {
-              ...review,
-              movieTitle: movie.title,
-              posterPath: movie.poster_path,
-              voteAverage: movie.vote_average, // 평점
-            };
-          })
-        );
-
-        setMyReviews(enrichedReviews);
+        setMyReviews(reviews);
       } catch (error) {
-        console.error("리뷰 작성한 영화 불러오기 오류:", error);
+        console.error("리뷰 정보 불러오기 오류:", error);
       }
     };
 
-    fetchReviewMovies();
-  }, []);
+    fetchReviews();
+  }, [username]);
+
+  // ✅ 리뷰 쓴 영화 목록 불러오기
+  // useEffect(() => {
+  //   const fetchReviewMovies = async () => {
+  //     try {
+  //       const token = localStorage.getItem("accessToken");
+
+  //       const response = await fetch(
+  //         `${import.meta.env.VITE_BACKEND_API_URL}/mypage`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //             "ngrok-skip-browser-warning": "true", // ✅ 요거 추가!
+  //           },
+  //         }
+  //       );
+
+  //       if (!response.ok) throw new Error("리뷰 작성한 영화 불러오기 실패");
+
+  //       const reviews = await response.json();
+  //       console.log(reviews);
+
+  //       // ✅ 각 리뷰에 대해 영화 정보 요청
+  //       const enrichedReviews = await Promise.all(
+  //         reviews.map(async (review) => {
+  //           const movieRes = await fetch(
+  //             `https://api.themoviedb.org/3/movie/${review.movieId}?api_key=${
+  //               import.meta.env.VITE_TMDB_API_KEY
+  //             }&language=ko`
+  //           );
+  //           const movie = await movieRes.json();
+
+  //           return {
+  //             ...review,
+  //             movieTitle: movie.title,
+  //             posterPath: movie.poster_path,
+  //             voteAverage: movie.vote_average, // 평점
+  //           };
+  //         })
+  //       );
+
+  //       setMyReviews(enrichedReviews);
+  //     } catch (error) {
+  //       console.error("리뷰 작성한 영화 불러오기 오류:", error);
+  //     }
+  //   };
+
+  //   fetchReviewMovies();
+  // }, []);
 
   return (
     <div>
