@@ -20,7 +20,9 @@ const Header = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onSearch(input.trim());
+      if (typeof onSearch === "function") {
+        onSearch(input.trim());
+      }
     }, 100);
 
     return () => clearTimeout(timer);
