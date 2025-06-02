@@ -1,0 +1,100 @@
+.movie-info-container {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #1c1c1c;
+  border-radius: 0px;
+  color: #eee;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+}
+
+.movie-info-container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 900;
+  font-family: 'Montserrat', 'Pretendard', 'Segoe UI', 'Noto Sans KR', sans-serif;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* 공통 포스터-예고편 래퍼 */
+.poster-trailer-wrapper {
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+/* 예고편 있는 경우: 좌우 배치 */
+.poster-trailer-wrapper.with-trailer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 3rem;
+  padding-left: 1rem;
+}
+
+/* 예고편 없는 경우: 포스터 중앙 정렬 */
+.poster-trailer-wrapper.no-trailer {
+  display: flex;
+  justify-content: center;
+}
+
+.poster {
+  max-width: 280px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.trailer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem; /* 포스터보다 살짝 아래 */
+}
+
+.trailer iframe {
+  width: 640px;
+  height: 360px;
+  border-radius: 12px;
+  border: none;
+  max-width: 100%;
+}
+
+.movie-info-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.movie-info-container strong {
+  color: #ffd700;
+}
+
+.cast-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.cast-item {
+  width: 120px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.cast-item img {
+  width: 100px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.cast-item .character {
+  font-size: 0.85rem;
+  color: #aaa;
+}

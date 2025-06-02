@@ -1,0 +1,85 @@
+.header {
+  background-color: #111;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  gap: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* 🎬MovieLog 타이틀 */
+.logo-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #eee;
+  margin: 0;
+  letter-spacing: 1px;
+  flex: 1 1 auto;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+/* 검색창 박스 */
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  gap: 0.5rem;
+  flex: 0 1 250px;
+  min-width: 180px;
+}
+
+.search-icon {
+  flex-shrink: 0;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  color: #eee;
+  font-size: 0.9rem;
+  outline: none;
+  flex: 1;
+}
+
+.search-box input::placeholder {
+  color: #888;
+}
+
+/* 버튼 스타일 (login, sign in) */
+.title button {
+  background: none;
+  border: none;
+  color: #eee;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  transition: color 0.2s;
+  flex-shrink: 0;
+
+  /* ✅ 폰트 통일 */
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
+}
+
+.title button:hover {
+  color: #ccc;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #333;
+  margin: 0 2rem;
+}
