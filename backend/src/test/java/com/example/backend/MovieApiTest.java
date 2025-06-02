@@ -104,8 +104,8 @@ public class MovieApiTest {
                 .statusCode(HttpStatus.OK.value())
                 .body("id", equalTo(movieId.intValue()))
                 .body("title", equalTo(title))
-                .body("posterPath", equalTo(posterPath))
-                .body("rating", equalTo(rating.floatValue()));
+                .body("poster_path", equalTo(posterPath))
+                .body("vote_average", equalTo(rating.floatValue()));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class MovieApiTest {
                 .body("size()", equalTo(1))
                 .body("[0].id", equalTo(movie1.getId().intValue()))
                 .body("[0].title", equalTo(movie1.getTitle()))
-                .body("[0].posterPath", equalTo(movie1.getPosterPath()))
-                .body("[0].rating", equalTo(movie1.getRating().floatValue()));
+                .body("[0].poster_path", equalTo(movie1.getPosterPath()))
+                .body("[0].vote_average", equalTo(movie1.getRating().floatValue()));
     }
 }
