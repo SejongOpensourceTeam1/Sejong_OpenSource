@@ -30,11 +30,13 @@ public class JwtTokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
+    // JWT 서명을 위한 Key 생성
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+    // 사용자 인증 정보를 바탕으로 Access Token 생성
     public String generateAccessToken(Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         Date expiryDate = new Date(new Date().getTime() + jwtAccessTokenExpirationTime);
@@ -71,6 +73,7 @@ public class JwtTokenProvider {
                 .get("user-id", Long.class);
     }
 
+    // JWT 유효성 검증
     public Boolean validateToken(String token) {
         try {
             Jwts
@@ -80,19 +83,27 @@ public class JwtTokenProvider {
                     .parseClaimsJws(token);
 
             return true;
-        } catch (MalformedJwtException ex) {
+        } // 형식이 잘못된 JWT (예: 구조가 틀리거나 Base64 디코딩 실패 등)
+        catch (MalformedJwtException ex) {
             logger.warn("Invalid JWT token");
         }
+
+        // 토큰이 만료된 경우 (exp 시간이 현재보다 이전)
         catch (ExpiredJwtException ex) {
             logger.warn("Expired JWT token");
         }
+
+        // 지원하지 않는 JWT 형식 (예: 비정상적인 서명 알고리즘 등)
         catch (UnsupportedJwtException ex) {
             logger.warn("Unsupported JWT token");
         }
+
+        // 토큰이 null이거나 비어 있거나, claim 문자열이 비정상일 경우
         catch (IllegalArgumentException ex) {
             logger.warn("JWT claims string is empty.");
         }
-        return false;
+
+        return false; // 위 예외 중 하나라도 발생하면 유효하지 않음
     }
 
     public String generateTestAccessToken(String username, Long userId) {
