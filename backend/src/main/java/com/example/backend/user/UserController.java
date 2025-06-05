@@ -15,6 +15,10 @@ public class UserController {
 
     private final UserService userService;
 
+
+    /** 사용자 정보는 @AuthenticationPrincipal을 통해 안전하게 추출 */
+
+
     @GetMapping("/mypage")
     public UserResponseDto getMyInfo(@AuthenticationPrincipal CustomUserDetails userDetails)  {
         User user = userService.getUser(userDetails.getId());
@@ -29,7 +33,7 @@ public class UserController {
     @PutMapping("/mypage/modify/nickname")
     public UserResponseDto updateNickname(@AuthenticationPrincipal CustomUserDetails userDetails,
                                           @RequestBody UserRequestDto request) {
-        var user = userService.updateUserNickname(userDetails.getId(), request);
+        User user = userService.updateUserNickname(userDetails.getId(), request);
         return UserResponseDto.builder()
                 .id(user.getId())
                 .nickname(user.getNickname())
@@ -40,7 +44,7 @@ public class UserController {
     @PutMapping("/mypage/modify/password")
     public UserResponseDto updatePassword(@AuthenticationPrincipal CustomUserDetails userDetails,
                                           @RequestBody UserRequestDto request) {
-        var user = userService.updateUserPassword(userDetails.getId(), request);
+        User user = userService.updateUserPassword(userDetails.getId(), request);
         return UserResponseDto.builder()
                 .id(user.getId())
                 .nickname(user.getNickname())

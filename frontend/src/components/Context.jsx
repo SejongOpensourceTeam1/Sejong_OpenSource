@@ -83,21 +83,6 @@ const Context = ({ searchKeyword }) => {
           ))}
         </>
       )}
-
-      {/* {searchResults.length > 0 && (
-        <ScrollableSlider
-          title={`🔍 "${searchKeyword}" 검색 결과`}
-          movies={searchResults.slice(0, 18)}
-        />
-      )}
-      <ScrollableSlider title="⭐ 평점 높은 영화 Top 10" movies={topRated} />
-      {genres.map((genre) => (
-        <ScrollableSlider
-          key={genre.id}
-          title={genre.name}
-          movies={(genreMovies[genre.name] || []).slice(0, 18)}
-        />
-      ))} */}
     </div>
   );
 };

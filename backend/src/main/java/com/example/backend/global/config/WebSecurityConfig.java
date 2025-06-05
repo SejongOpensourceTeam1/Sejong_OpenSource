@@ -23,8 +23,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 public class WebSecurityConfig {
+
+    // JWT 토큰 인증 필터 주입
     private final JwtTokenFilter jwtTokenFilter;
 
+    // 비밀번호 암호화를 위한 인코더 (BCrypt 사용)
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -33,20 +36,26 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults()) // CORS 필터 활성화
-                .csrf(csrf -> csrf.disable())
-                .formLogin(form -> form.disable())
-                .httpBasic(basic -> basic.disable())
+                .cors(Customizer.withDefaults())              // CORS 설정 적용
+                .csrf(csrf -> csrf.disable())                // CSRF 비활성화 (JWT 사용 시 불필요)
+                .formLogin(form -> form.disable())           // 폼 로그인 비활성화
+                .httpBasic(basic -> basic.disable())         // HTTP Basic 비활성화
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/api/login", "/api/register", "/api/refresh", "/api/logout").permitAll()
+                        .requestMatchers(
+                                "/api/login",
+                                "/api/register",
+                                "/api/refresh",
+                                "/api/logout"
+                        ).permitAll()                        // 인증 없이 허용할 경로
                         .requestMatchers("/reviews/movie/*").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated()        // 그 외는 인증 필요
                 )
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class); // JWT 필터 적용
 
         return http.build();
     }
 
+    // CORS 허용 설정
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
@@ -63,7 +72,6 @@ public class WebSecurityConfig {
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // 모든 경로에 대해 위 설정 적용
         source.registerCorsConfiguration("/**", config);
         return source;
     }

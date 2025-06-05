@@ -1,13 +1,15 @@
+/* 전체 리뷰 컴포넌트 컨테이너 */
 .review-container {
-  max-width: 800px;
-  margin: 1.5rem auto;
+  max-width: 800px; /* 최대 너비 설정 */
+  margin: 1.5rem auto; /* 상하 여백 + 가운데 정렬 */
   padding: 2rem;
   background-color: #1c1c1c;
-  border-radius: 0px; /* 🔻 둥근 효과 제거 */
+  border-radius: 0px; /* 둥근 효과 제거 */
   color: #f0f0f0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* 그림자 효과 */
 }
 
+/* 리뷰 섹션 제목 스타일 */
 .review-container h2 {
   font-size: 1.6rem;
   margin-bottom: 1rem;
@@ -18,37 +20,46 @@
   padding-bottom: 0.4rem;
 }
 
+/* 리뷰 리스트 기본 설정 */
 .review-list {
-  list-style: none;
+  list-style: none; /* 목록 마커 제거 */
   padding: 0;
   margin-bottom: 2rem;
 }
 
+/* 개별 리뷰 아이템 */
 .review-item {
-  position: relative; /* 🔸 삭제 버튼 위치 기준 */
+
+  position: relative; /* 삭제 버튼 위치 기준 */
   padding: 1rem;
   background-color: #2a2a2a;
-  border-radius: 8px; /* ✅ 둥근 효과 유지 */
+  border-radius: 8px; /*  둥근 모서리 유지 */
+
+ 
   margin-bottom: 1rem;
   transition: background 0.2s ease;
 }
 
+/* 리뷰 아이템 마우스 오버 시 배경 변화 */
 .review-item:hover {
   background-color: #333;
 }
 
+/* 작성자명 강조 */
 .review-item strong {
-  color: #ffd700;
+  color: #ffd700; /* 노란색 강조 */
 }
 
+/* 리뷰 작성 폼 전체 */
 .review-form {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
+/* 리뷰 입력창 스타일 */
 .review-form textarea {
-  resize: vertical;
+  resize: vertical; /* 수직 크기 조절만 가능 */
   min-height: 90px;
   border-radius: 8px;
   border: none;
@@ -60,6 +71,7 @@
   margin-top: 0.3rem;
 }
 
+/* 평점 드롭다운과 라벨 정렬 */
 .review-form .rating-row {
   display: flex;
   align-items: center;
@@ -67,6 +79,7 @@
   gap: 0.6rem;
 }
 
+/* 평점 선택 select 박스 */
 .review-form select {
   padding: 0.4rem 0.6rem;
   font-size: 1rem;
@@ -76,8 +89,9 @@
   border: 1px solid #555;
 }
 
+/* 리뷰 제출 버튼 */
 .review-form button {
-  align-self: flex-end;
+  align-self: flex-end; /* 오른쪽 정렬 */
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   font-weight: bold;
@@ -89,10 +103,12 @@
   transition: background 0.2s ease;
 }
 
+/* 제출 버튼 호버 효과 */
 .review-form button:hover {
   background-color: #ff3335;
 }
 
+/* 로그인 안 했을 때 안내 문구 */
 .review-login-message {
   text-align: center;
   font-size: 1rem;
@@ -100,8 +116,10 @@
   margin-top: 1.5rem;
 }
 
+/* 삭제 버튼 스타일 */
 .delete-button {
-  position: absolute;
+  position: absolute; /*  리뷰 아이템 내부에서 절대 위치 */
+
   bottom: 10px;
   right: 10px;
   padding: 0.4rem 0.9rem;
@@ -113,7 +131,7 @@
   font-size: 0.85rem;
   transition: background 0.2s ease;
 }
-
+/* 삭제 버튼 호버 효과 */
 .delete-button:hover {
   background-color: #ff3335;
 }
