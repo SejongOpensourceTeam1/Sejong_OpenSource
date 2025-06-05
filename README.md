@@ -15,11 +15,13 @@
 ##  요구 사항
 
 ### 소프트웨어
-- Frontend: React, HTML5, CSS3
-- Backend: Spring Boot (API 연동 예정)
-- Database: MariaDB
-- 기타: Node.js, Vite, Axios
 
+프론트엔드 : React 
+백엔드 : Spring Boot
+데이터베이스 : MySQL 
+인증 방식 : JWT (JSON Web Token) 
+배포 및 환경 구성 : Docker 
+버전 관리 및 협업 도구 : GitHub, Sourcetree
 
 ## 설치 및 실행 방법
 
