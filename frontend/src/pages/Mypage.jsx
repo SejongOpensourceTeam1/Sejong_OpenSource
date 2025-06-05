@@ -38,6 +38,7 @@ const Mypage = ({
   }
 
   // 로그인 안 된 경우 알림 및 리다이렉트
+
   useEffect(() => {
     if (!isLogin) {
       const answer = window.confirm(
@@ -47,11 +48,13 @@ const Mypage = ({
         setShowLoginModal(true); // 로그인 모달 열기
       } else {
         navigate("/"); // 홈으로 이동
+
       }
     }
   }, [isLogin, navigate, setShowLoginModal]);
 
-  // 👤 사용자 정보 불러오기
+
+  // 유저 정보 불러오기
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {

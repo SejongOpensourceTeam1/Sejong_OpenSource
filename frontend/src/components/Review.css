@@ -4,7 +4,7 @@
   margin: 1.5rem auto; /* 상하 여백 + 가운데 정렬 */
   padding: 2rem;
   background-color: #1c1c1c;
-  border-radius: 0px; /*  둥근 테두리 제거 */
+  border-radius: 0px; /* 둥근 효과 제거 */
   color: #f0f0f0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* 그림자 효과 */
 }
@@ -29,10 +29,13 @@
 
 /* 개별 리뷰 아이템 */
 .review-item {
+
   position: relative; /* 삭제 버튼 위치 기준 */
   padding: 1rem;
   background-color: #2a2a2a;
   border-radius: 8px; /*  둥근 모서리 유지 */
+
+ 
   margin-bottom: 1rem;
   transition: background 0.2s ease;
 }
@@ -116,6 +119,7 @@
 /* 삭제 버튼 스타일 */
 .delete-button {
   position: absolute; /*  리뷰 아이템 내부에서 절대 위치 */
+
   bottom: 10px;
   right: 10px;
   padding: 0.4rem 0.9rem;
@@ -127,7 +131,6 @@
   font-size: 0.85rem;
   transition: background 0.2s ease;
 }
-
 /* 삭제 버튼 호버 효과 */
 .delete-button:hover {
   background-color: #ff3335;
