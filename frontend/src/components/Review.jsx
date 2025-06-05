@@ -2,14 +2,7 @@ import { useState, useEffect } from "react";
 import "./Review.css";
 
 const Review = ({ id }) => {
-  const [reviews, setReviews] = useState([
-    {
-      writer: "",
-      content: "",
-      rating: 0,
-      dateTime: "",
-    },
-  ]);
+  const [reviews, setReviews] = useState([]);
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(10);
 
@@ -22,7 +15,7 @@ const Review = ({ id }) => {
     username = payload.sub;
   }
 
-  // ✅ 리뷰 목록 불러오기
+  // 리뷰 불러오기
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -33,7 +26,7 @@ const Review = ({ id }) => {
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "ngrok-skip-browser-warning": "true", // ✅ 요거 추가!
+              "ngrok-skip-browser-warning": "true",
             },
           }
         );
@@ -49,7 +42,7 @@ const Review = ({ id }) => {
     fetchReviews();
   }, [id]);
 
-  // ✅ 리뷰 등록
+  // 리뷰 등록
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -63,8 +56,6 @@ const Review = ({ id }) => {
       dateTime: new Date().toISOString(),
     };
 
-    console.log("보낼 리뷰 객체:", newReview);
-
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_API_URL}/reviews`,
@@ -72,7 +63,7 @@ const Review = ({ id }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // ✅ 추가됨
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(newReview),
         }
@@ -80,8 +71,10 @@ const Review = ({ id }) => {
 
       if (!response.ok) throw new Error("리뷰 등록 실패");
 
-      // 닉네임 없이 writer만 저장됨
-      setReviews([...reviews, newReview]);
+      // ✅ 서버 응답에서 id 포함된 리뷰를 받아와서 추가
+      const savedReview = await response.json();
+      setReviews([...reviews, savedReview]);
+
       setContent("");
       setRating(10);
     } catch (error) {
@@ -89,11 +82,35 @@ const Review = ({ id }) => {
     }
   };
 
+  // 리뷰 삭제
+  const handleDelete = async (reviewId) => {
+    if (!window.confirm("리뷰를 삭제하시겠습니까?")) return;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API_URL}/reviews/${reviewId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 204 || response.ok) {
+        setReviews(reviews.filter((r) => r.id !== reviewId));
+      } else {
+        throw new Error("리뷰 삭제 실패");
+      }
+    } catch (error) {
+      console.error("리뷰 삭제 중 오류:", error);
+    }
+  };
+
   return (
     <div className="review-container">
       <h2>📝 리뷰</h2>
 
-      {/* 작성된 리뷰 목록 */}
       <ul className="review-list">
         {reviews.map((review, idx) => (
           <li key={idx} className="review-item">
@@ -102,11 +119,18 @@ const Review = ({ id }) => {
             </p>
             <p>{review.content}</p>
             <p>{review.dateTime.substring(0, 10)}</p>
+            {review.writer === username && (
+              <button
+                className="delete-button"
+                onClick={() => handleDelete(review.id)}
+              >
+                삭제
+              </button>
+            )}
           </li>
         ))}
       </ul>
 
-      {/* 조건부 리뷰 작성 폼 */}
       {isLoggedIn ? (
         <form onSubmit={handleSubmit} className="review-form">
           <textarea

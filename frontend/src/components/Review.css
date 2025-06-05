@@ -3,7 +3,7 @@
   margin: 1.5rem auto;
   padding: 2rem;
   background-color: #1c1c1c;
-  border-radius: 0px;
+  border-radius: 0px; /* 🔻 둥근 효과 제거 */
   color: #f0f0f0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
@@ -25,9 +25,10 @@
 }
 
 .review-item {
+  position: relative; /* 🔸 삭제 버튼 위치 기준 */
   padding: 1rem;
   background-color: #2a2a2a;
-  border-radius: 8px;
+  border-radius: 8px; /* ✅ 둥근 효과 유지 */
   margin-bottom: 1rem;
   transition: background 0.2s ease;
 }
@@ -97,4 +98,22 @@
   font-size: 1rem;
   color: #aaa;
   margin-top: 1.5rem;
+}
+
+.delete-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 0.4rem 0.9rem;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #ff3335;
 }
