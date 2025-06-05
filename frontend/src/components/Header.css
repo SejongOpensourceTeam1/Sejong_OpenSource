@@ -1,34 +1,36 @@
+/* 헤더 전체 영역 스타일 */
 .header {
-  background-color: #111;
+  background-color: #111; /* 어두운 배경색 */
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden; /* 수평 스크롤 숨김 */
 }
 
+/* 헤더 내부 타이틀 영역: 로고, 검색창, 버튼 포함 */
 .title {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* 줄바꿈 허용 (반응형) */
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* 좌우 정렬 */
   padding: 1rem 2rem;
   gap: 1rem;
   max-width: 100%;
-  box-sizing: border-box;
+  box-sizing: border-box; /* padding 포함해서 크기 계산 */
 }
 
-/* 🎬MovieLog 타이틀 */
+/* 사이트 로고 텍스트 (MovieLog) */
 .logo-title {
-  font-family: "Oswald", sans-serif;
+  font-family: "Oswald", sans-serif; /* 영문 스타일 글꼴 */
   font-size: 2rem;
   font-weight: 500;
   color: #eee;
   margin: 0;
-  letter-spacing: 1px;
-  flex: 1 1 auto;
+  letter-spacing: 1px; /* 자간 */
+  flex: 1 1 auto; /* 공간 자동 분배 */
   min-width: 120px;
-  cursor: pointer;
+  cursor: pointer; /* 클릭 가능하게 */
 }
 
-/* 검색창 박스 */
+/* 검색창 외곽 박스 */
 .search-box {
   display: flex;
   align-items: center;
@@ -36,28 +38,31 @@
   padding: 0.4rem 1rem;
   border-radius: 20px;
   gap: 0.5rem;
-  flex: 0 1 250px;
+  flex: 0 1 250px; /* 최대 너비 250px */
   min-width: 180px;
 }
 
+/* 검색 아이콘 (축소되지 않도록 고정) */
 .search-icon {
   flex-shrink: 0;
 }
 
+/* 검색창 입력 필드 */
 .search-box input {
   border: none;
-  background: transparent;
+  background: transparent; /* 배경 없음 */
   color: #eee;
   font-size: 0.9rem;
-  outline: none;
-  flex: 1;
+  outline: none; /* 포커스 테두리 제거 */
+  flex: 1; /* 남은 공간 모두 차지 */
 }
 
+/* 검색창 placeholder 스타일 */
 .search-box input::placeholder {
-  color: #888;
+  color: #888; /* 흐릿한 회색 */
 }
 
-/* 버튼 스타일 (login, sign in) */
+/* 로그인 / 회원가입 버튼 스타일 */
 .title button {
   background: none;
   border: none;
@@ -66,17 +71,19 @@
   font-size: 0.85rem;
   padding: 0.4rem 0.8rem;
   transition: color 0.2s;
-  flex-shrink: 0;
+  flex-shrink: 0; /* 줄어들지 않게 */
 
-  /* ✅ 폰트 통일 */
+  /* 통일된 폰트 스타일 */
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 400;
 }
 
+/* 버튼 호버 시 색상 변경 */
 .title button:hover {
   color: #ccc;
 }
 
+/* 헤더 아래 구분선 */
 hr {
   border: none;
   height: 1px;

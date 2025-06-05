@@ -1,8 +1,9 @@
 import "./Modal.css";
-
 import { useState } from "react";
 
+// Register 컴포넌트: 회원가입 모달 UI 및 처리 로직
 const Register = ({ closeModal, switchToLogin }) => {
+  // 입력 폼 상태
   const [formData, setFormData] = useState({
     nickname: "",
     username: "",
@@ -10,22 +11,26 @@ const Register = ({ closeModal, switchToLogin }) => {
     confirmPassword: "",
   });
 
+  // 입력값 변경 시 상태 업데이트
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value, // name 속성에 따라 각각 갱신
     }));
   };
 
+  // 회원가입 요청 처리
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // 폼 기본 동작 방지
 
+    // 비밀번호 확인 검증
     if (formData.password !== formData.confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
 
     try {
+      // 서버에 회원가입 POST 요청
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_API_URL}/api/register`,
         {
@@ -43,7 +48,7 @@ const Register = ({ closeModal, switchToLogin }) => {
 
       if (res.ok) {
         alert("회원가입 성공!");
-        switchToLogin(); // 바로 로그인 모달로 전환
+        switchToLogin(); // 로그인 모달로 전환
       } else {
         alert("회원가입 실패");
       }
@@ -56,10 +61,14 @@ const Register = ({ closeModal, switchToLogin }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
+        {/* 닫기 버튼 (x) */}
         <button className="close-button" onClick={closeModal}>
           ×
         </button>
+
         <h2>회원가입</h2>
+
+        {/* 회원가입 입력 폼 */}
         <form onSubmit={handleSubmit} className="modal-form">
           <input
             type="text"
@@ -97,6 +106,8 @@ const Register = ({ closeModal, switchToLogin }) => {
             가입하기
           </button>
         </form>
+
+        {/* 로그인으로 이동 링크 */}
         <p className="redirect-text">
           이미 계정이 있으신가요?{" "}
           <span className="link-text" onClick={switchToLogin}>

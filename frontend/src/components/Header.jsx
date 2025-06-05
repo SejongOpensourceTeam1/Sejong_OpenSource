@@ -3,39 +3,43 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Header = ({
-  isLogin,
-  setIsLogin,
-  setShowLoginModal,
-  setShowRegisterModal,
-  onSearch,
+  isLogin,               // 로그인 여부 (true/false)
+  setIsLogin,            // 로그인 상태 변경 함수
+  setShowLoginModal,     // 로그인 모달 표시 함수
+  setShowRegisterModal,  // 회원가입 모달 표시 함수
+  onSearch,              // 검색 입력 콜백 함수
 }) => {
-  const [input, setInput] = useState("");
-  const nav = useNavigate();
+  const [input, setInput] = useState(""); // 검색 입력 상태
+  const nav = useNavigate(); // 페이지 이동용 훅
 
+  // 로그아웃 함수
   const logout = () => {
-    localStorage.removeItem("accessToken");
-    setIsLogin(false);
-    nav("/");
-    window.location.reload();
+    localStorage.removeItem("accessToken"); // 토큰 삭제
+    setIsLogin(false); // 로그인 상태 false로
+    nav("/"); // 홈으로 이동
+    window.location.reload(); // 새로고침 (상태 초기화)
   };
 
+  // 검색 입력 감지 (0.1초 디바운스)
   useEffect(() => {
     const timer = setTimeout(() => {
       if (typeof onSearch === "function") {
-        onSearch(input.trim());
+        onSearch(input.trim()); // 공백 제거 후 검색 실행
       }
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer); // 입력 변경 시 타이머 초기화
   }, [input, onSearch]);
 
   return (
     <div className="header">
       <div className="title">
+        {/* 로고 클릭 시 홈으로 이동 */}
         <h2 className="logo-title" onClick={() => nav("/")}>
           🎬CineCampus
         </h2>
 
+        {/* 검색창 영역 */}
         <div className="search-box">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -51,10 +55,11 @@ const Header = ({
             type="text"
             placeholder="영화 제목 검색"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)} // 입력 값 상태 저장
           />
         </div>
 
+        {/* 로그인 여부에 따라 버튼 분기 */}
         <div className="auth-buttons">
           {isLogin ? (
             <>
@@ -71,6 +76,7 @@ const Header = ({
           )}
         </div>
       </div>
+      {/* 구분선 */}
       <hr />
     </div>
   );
