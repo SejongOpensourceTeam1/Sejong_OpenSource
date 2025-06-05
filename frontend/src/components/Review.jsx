@@ -6,10 +6,6 @@ const Review = ({ id }) => {
   const [content, setContent] = useState(""); // 입력 중인 리뷰 내용
   const [rating, setRating] = useState(10);   // 선택한 평점
 
-
-  const token = localStorage.getItem("accessToken");
-  const isLoggedIn = !!token;
-
   const token = localStorage.getItem("accessToken"); // JWT 토큰
   const isLoggedIn = !!token; // 로그인 여부
 
