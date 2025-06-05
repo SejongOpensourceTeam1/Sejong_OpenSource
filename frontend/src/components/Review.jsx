@@ -160,6 +160,7 @@ const Review = ({ id }) => {
       )}
     </div>
   );
+  
 };
 
 export default Review;
