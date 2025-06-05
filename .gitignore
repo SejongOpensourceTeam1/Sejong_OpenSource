@@ -15,3 +15,9 @@ out/
 
 ### Mac OS ###
 .DS_Store
+
+### Docker ###
+db/data/
+*.pid
+*.log
+backend/src/main/java/com/example/backend/global/config/WebSecurityConfig.java

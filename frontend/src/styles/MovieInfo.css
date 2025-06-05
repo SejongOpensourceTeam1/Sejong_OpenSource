@@ -1,0 +1,111 @@
+/* 전체 영화 상세 정보 컨테이너 */
+.movie-info-container {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #1c1c1c; /* 어두운 배경 */
+  border-radius: 0px; /* 둥근 테두리 없음 */
+  color: #eee;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 외곽 그림자 */
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+}
+
+/* 영화 제목 스타일 */
+.movie-info-container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 900;
+  font-family: 'Montserrat', 'Pretendard', 'Segoe UI', 'Noto Sans KR', sans-serif;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* 진한 그림자 */
+}
+
+/* 포스터 + 예고편 공통 래퍼 */
+.poster-trailer-wrapper {
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap; /* 줄바꿈 허용 */
+}
+
+/* 예고편 있는 경우: 포스터 + 예고편 좌우 정렬 */
+.poster-trailer-wrapper.with-trailer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 3rem;
+  padding-left: 1rem;
+}
+
+/* 예고편 없는 경우: 포스터 가운데 정렬 */
+.poster-trailer-wrapper.no-trailer {
+  display: flex;
+  justify-content: center;
+}
+
+/* 포스터 이미지 스타일 */
+.poster {
+  max-width: 280px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* 예고편 영역 스타일 */
+.trailer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem; /* 포스터보다 아래 배치 */
+}
+
+/* 유튜브 iframe 예고편 */
+.trailer iframe {
+  width: 640px;
+  height: 360px;
+  border-radius: 12px;
+  border: none;
+  max-width: 100%;
+}
+
+/* 영화 상세 설명 텍스트 */
+.movie-info-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+/* 강조 텍스트 (ex: 개봉일, 평점) */
+.movie-info-container strong {
+  color: #ffd700; /* 골드 색상 */
+}
+
+/* 출연진 목록 전체 래퍼 */
+.cast-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+/* 개별 배우 아이템 */
+.cast-item {
+  width: 120px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* 배우 프로필 사진 */
+.cast-item img {
+  width: 100px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover; /* 이미지 비율 유지 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* 배역 이름 */
+.cast-item .character {
+  font-size: 0.85rem;
+  color: #aaa;
+}

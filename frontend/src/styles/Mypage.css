@@ -1,0 +1,108 @@
+/* 마이페이지 전체 컨테이너 */
+.mypage-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #000000;
+  border-radius: 0; /* <- 둥근 모서리 제거 */
+  color: #f0f0f0;
+  font-family: "Segoe UI", "Noto Sans KR", sans-serif;
+  box-shadow: 0 0 0 2px #222; /* 더 딱딱한 외곽선 느낌 */
+}
+
+/* 사용자 정보 영역 */
+.user-information {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+/* 사용자 정보 텍스트 기본 스타일 */
+.user-information p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #f0f0f0;
+}
+
+/* 닉네임 강조 스타일 */
+.user-information p.nickname {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* 아이디 스타일 (회색, 작은 글씨) */
+.user-information p.username {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-top: 0.2rem;
+}
+
+/* 제목 (내가 쓴 리뷰) 스타일 */
+.mypage-container h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.5rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 리뷰한 영화 리스트 (3열 그리드) */
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* 개별 영화 카드 */
+.movie-item {
+  width: 180px;
+  background-color: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+/* 마우스 오버 시 카드 튀어나오는 효과 */
+.movie-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 영화 포스터 이미지 */
+.movie-item img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.6rem;
+}
+
+/* 영화 제목 및 평점 텍스트 */
+.movie-item p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+/* 부가 정보 텍스트 (사용 안하는 경우도 있음) */
+.movie-item small {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+/* 모바일 화면 대응 (너비 줄이기) */
+@media (max-width: 600px) {
+  .movie-item {
+    width: 100%;
+  }
+}
+
+/* 내가 쓴 리뷰 수 텍스트 스타일 */
+.user-information p.review-count {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 0.2rem;
+}
