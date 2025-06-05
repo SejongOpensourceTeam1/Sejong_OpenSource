@@ -24,17 +24,20 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetailsService customUserDetailsService;
 
+    // 요청당 한 번만 실행되는 필터
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String accessToken = getTokenFromRequest(request);
 
+        // 토큰이 유효하면 인증 객체 생성 후 SecurityContext에 저장
         if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
             UsernamePasswordAuthenticationToken authentication = getAuthenticationFromToken(accessToken);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
+        // 다음 필터로 요청 전달
         filterChain.doFilter(request, response);
     }
 
@@ -42,12 +45,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String bearerToken = request.getHeader("Authorization");
         
         if (StringUtils.hasText(bearerToken)&& bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); // TODO : Bearer 제거해도 오류 안 나는지 확인해야함
+            return bearerToken.substring(7);
         }
 
         return null;
     }
 
+    // 토큰에서 사용자 ID 추출 후 인증 객체 생성
     private UsernamePasswordAuthenticationToken getAuthenticationFromToken(String token) {
         Long userId = jwtTokenProvider.getUserIdFromToken(token);
         UserDetails userDetails = customUserDetailsService.loadUserByUserId(userId);
