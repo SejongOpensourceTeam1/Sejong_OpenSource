@@ -52,7 +52,12 @@ public class WebSecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // 프론트엔드 Vite 개발 서버 주소
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://52.79.198.3",
+                "http://cinecampus.kro.kr",
+                "http://www.cinecampus.kro.kr"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
