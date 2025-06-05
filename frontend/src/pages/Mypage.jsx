@@ -31,6 +31,19 @@ const Mypage = ({
     username = payload.sub;
   }
 
+  useEffect(() => {
+    if (!isLogin) {
+      const answer = window.confirm(
+        "로그인이 필요한 서비스입니다. 로그인하시겠습니까?"
+      );
+      if (answer) {
+        setShowLoginModal(true);
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isLogin, navigate, setShowLoginModal]);
+
   // 유저 정보 불러오기
   useEffect(() => {
     const fetchUserInfo = async () => {
